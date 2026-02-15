@@ -1,21 +1,20 @@
 # Fedora Kinoite Nitro (Bleeding Edge)
 
-Custom **Fedora Kinoite** (Plasma Master/Beta + Nvidia) image optimized for the Acer Nitro 5 (AN515-43). Designed for stability, battery longevity, and peak performance.
+Custom **Fedora Kinoite** (Nvidia) image optimized for the Acer Nitro 5 (AN515-43). Designed for stability, battery longevity, and peak performance.
 
 ## 🚀 Key Features
 
-This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customized for the Nitro 5 hardware.
+This image is built on `ghcr.io/ublue-os/kinoite-nvidia:44` and heavily customized for the Nitro 5 hardware.
 
 ### 🎮 Graphics & Performance
-*   **Base:** `ghcr.io/ublue-os/kinoite-nvidia:43` (Fedora Atomic 43).
+*   **Base:** `ghcr.io/ublue-os/kinoite-nvidia:44` (Fedora Atomic 44).
 *   **Nvidia Drivers:** Proprietary drivers pre-installed with **Dynamic Power Management** enabled (`NVreg_DynamicPowerManagement=0x02`).
-*   **Hybrid Graphics:** **supergfxctl** + **supergfxctl-plasmoid** pre-installed for easy switching between Integrated, Hybrid, and Dedicated modes.
-*   **KDE Plasma:** Bleeding edge version from the `@kdesig/kde-beta` COPR (Plasma 6.5.91+ / Master).
-*   **Login Manager:** **Plasma Login** (`plasmalogin.service`) replaces SDDM for a more integrated experience.
+*   **Native Experience:** Uses the native Fedora 44 Plasma Login Manager and system settings.
+*   **Discover:** Full **rpm-ostree** support enabled within Discover for GUI system management.
 
 ### 🔋 Power & Battery Health
 *   **TLP:** Advanced power management with specific **Acer Nitro 5 Battery Thresholds** (Start: 75% / Stop: 80%).
-*   **TLP-PD:** TLP Power Profiles Daemon (v1.9+) enabled via official COPR for advanced profile switching directly in the recipe.
+*   **TLP-PD:** TLP Power Profiles Daemon (v1.9+) integrated for advanced profile switching.
 *   **Nvidia Powerd:** Enabled for dynamic thermal and power balancing.
 *   **Radio Management:** `systemd-rfkill` masked to prevent conflicts with TLP's radio state management.
 
@@ -23,15 +22,16 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 *   **Default Browser:** **Google Chrome** (RPM) pre-installed and set as system default.
 *   **Terminal:** **Oh My Bash** pre-installed in `/etc/skel` with the **Powerline** theme and productivity plugins (`git`, `bash-completion`).
 *   **Container Management:** **Distrobox** (replaces Toolbox).
+*   **KWrite:** Installed as a **Flatpak** for easier updates and environment isolation.
 *   **Homebrew:** Linuxbrew manager pre-installed and configured with daily auto-update/upgrade timers.
-*   **Theme Sync:** Custom systemd service to sync root user theme (including cursor) with the primary user (UID 1000).
+*   **Theme Sync:** Custom systemd service to sync root user theme with the primary user (Wheel group).
 
 ### 🖨️ Printing
-*   **Epson Drivers:** `epson-inkjet-printer-escpr` installed from a stable local repository for long-term build reliability.
+*   **Epson Drivers:** `epson-inkjet-printer-escpr` installed with SHA256 integrity verification for reliability.
 
 ### 📦 Clean & Lean System
-*   **Removed Bloat:** Firefox, SDDM, fcitx5, ibus engines, Kate, Toolbox, and several debug utilities have been removed to keep the image lightweight.
-*   **Flatpaks:** Flathub (system-wide) configured with a curated selection of KDE apps (Okular, Elisa, Haruna, etc.).
+*   **Removed Bloat:** Firefox, SDDM, fcitx5, ibus engines, Kate, and Toolbox have been removed.
+*   **Flatpaks:** Flathub (system-wide) configured with a curated selection of KDE apps.
 
 ## 📁 Project Structure
 
@@ -39,12 +39,11 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 recipes/
 └── recipe.yml                  # Main BlueBuild configuration
 files/scripts/
-├── upgrade-kde-beta.sh         # Upgrades Plasma to Master/Beta
 ├── setup-tlp.sh                # Configures TLP & Battery Thresholds
 ├── configure-nvidia.sh         # Dynamic Power Management setup
 ├── setup-root-theme-sync.sh    # Syncs visual settings to root
 ├── configure-grub.sh           # Atomic-safe GRUB configuration
-├── install-epson-escpr.sh      # Stable local driver installation
+├── install-epson-escpr.sh      # Driver installation with Hash Check
 ├── install-chrome.sh           # Chrome & MIME settings
 └── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
 .github/workflows/

@@ -1,95 +1,23 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 name: fedora-kinoite-nitro-an515-43
-description: Fedora Kinoite (Fedora 43 / KDE Plasma Master / Nvidia) optimized for the Acer Nitro 5 (AN515-43).
-
+description: Fedora Kinoite (Fedora 44 / Nvidia) optimized for Acer Nitro 5 (AN515-43).
 base-image: ghcr.io/ublue-os/kinoite-nvidia
-image-version: 43
+image-version: 44
 
 modules:
-  #
-  # Module 1: Repository Management
-  #
-  - type: dnf
-    repos:
-      copr:
-        - "@kdesig/kde-beta"
-    install:
-      packages:
-        - /tmp/files/rpms/tlp-release.fc43.noarch.rpm
-
-  #
-  # Module 2: Pre-Installation Cleanup (Conflict Resolution)
-  #
   - type: dnf
     remove:
       packages:
         - tuned
         - tuned-ppd
-
-  #
-  # Module 3: Main Package Installation
-  #
-  - type: dnf
-    install:
-      packages:
-        # Container Management
-        - distrobox
-
-        # Tools
-        - kwrite
-
-        # KDE Plasma - Login Manager (Install FIRST to satisfy dependencies)
-        - kcm-plasmalogin
-        - plasma-discover-rpm-ostree
-        - plasma-firewall
-        - plasma-login-manager
-        # LibreOffice
-        - libreoffice-calc
-        - libreoffice-draw
-        - libreoffice-graphicfilter
-        - libreoffice-impress
-        - libreoffice-kf6
-        - libreoffice-langpack-pt-BR
-        - libreoffice-math
-        - libreoffice-writer
-        # Power Management
-        - tlp
-        - tlp-pd
-        - tlp-rdw
-
-  #
-  # Module 4: Systemd Service Management
-  #
-  - type: systemd
-    system:
-      enabled:
-        - nvidia-powerd.service
-        - plasmalogin.service
-        - rpm-ostreed-automatic.timer
-        - tlp.service
-        - tlp-pd.service
-      masked:
-        - systemd-rfkill.service
-        - systemd-rfkill.socket
-
-  #
-  # Module 5: Safe Removals (Executed after service activation)
-  #
-  - type: dnf
-    remove:
-      packages:
-        # Browser (replaced by Chrome)
         - firefox
         - firefox-langpacks
         - mozilla-filesystem
-        # Container Management (replaced by distrobox)
         - toolbox
-        # Debug & System Tools
         - firewall-config
         - kdebugsettings
         - plasma-drkonqi
-        # Input Method: fcitx5 (core & engines)
         - fcitx5
         - fcitx5-autostart
         - fcitx5-chewing
@@ -118,7 +46,6 @@ modules:
         - libchewing
         - libime
         - libime-data
-        # Input Method: ibus (engines)
         - ibus-anthy
         - ibus-anthy-python
         - ibus-chewing
@@ -127,35 +54,61 @@ modules:
         - ibus-m17n
         - kasumi-common
         - kasumi-unicode
-        # Login Manager (replaced by Plasma Login)
         - sddm
-        # Power Management (Already removed in Module 2)
-        # - tuned
-        # - tuned-ppd
-        # System Monitors
         - htop
         - nvtop
-        # Text Editor (KWrite is already included)
         - kate
         - kate-krunner-plugin
-        - kate-libs
         - kate-plugins
 
-  #
-  # Module 6: System Upgrade (Plasma Beta/Master)
-  #
+  - type: dnf
+    install:
+      packages:
+        - libreoffice-calc
+        - libreoffice-draw
+        - libreoffice-graphicfilter
+        - libreoffice-impress
+        - libreoffice-kf6
+        - libreoffice-langpack-pt-BR
+        - libreoffice-math
+        - libreoffice-writer
+        - tlp
+        - tlp-pd
+        - tlp-rdw
+        - switcheroo-control
+        - distrobox
+        - plasma-discover-rpm-ostree
+        - plasma-firewall
+
+  - type: files
+    files:
+      - source: files/rpms
+        destination: /tmp/rpms
+
+  - type: systemd
+    system:
+      enabled:
+        - nvidia-powerd.service
+        - rpm-ostreed-automatic.timer
+        - tlp.service
+        - tlp-pd.service
+        - switcheroo-control.service
+      masked:
+        - systemd-rfkill.service
+        - systemd-rfkill.socket
+
   - type: script
     scripts:
-      - upgrade-kde-beta.sh
+      - install-oh-my-bash.sh
+      - setup-tlp.sh
+      - configure-nvidia.sh
+      - install-chrome.sh
+      - setup-root-theme-sync.sh
+      - configure-grub.sh
+      - install-epson-escpr.sh
 
-  #
-  # Module 7: Homebrew
-  #
   - type: brew
 
-  #
-  # Module 8: Fonts
-  #
   - type: fonts
     fonts:
       nerd-fonts:
@@ -164,35 +117,6 @@ modules:
         - Fira Sans
         - Fira Mono
 
-  #
-  # Module 9: Arbitrary Files
-  #
-  - type: files
-    files:
-      - source: rpms
-        destination: /tmp/rpms
-
-  #
-  # Module 10: Custom Configuration Scripts
-  #
-  - type: script
-    scripts:
-      # System Modernization
-      - install-oh-my-bash.sh # Sets up shell environment with plugins
-
-      # Hardware Optimization
-      - setup-tlp.sh # Configures advanced power management
-      - configure-nvidia.sh # Optimizes Nvidia driver settings
-      - install-epson-escpr.sh # Installs printer drivers (unsigned RPMs)
-
-      # User Experience
-      - install-chrome.sh # Installs Google Chrome Stable
-      - setup-root-theme-sync.sh # Syncs root theme with admin user
-      - configure-grub.sh # Manages bootloader settings
-
-  #
-  # Module 11: Flatpak Applications
-  #
   - type: default-flatpaks
     configurations:
       - scope: system
@@ -209,6 +133,8 @@ modules:
           - org.kde.kalk
           - org.kde.koko
           - org.kde.marknote
+          - org.kde.kwrite
+          - org.kde.merkuro
           - io.github.DenysMb.Kontainer
       - scope: user
         repo:
@@ -216,7 +142,4 @@ modules:
           name: flathub
         remove-repo: true
 
-  #
-  # Module 12: Container Signing
-  #
   - type: signing
