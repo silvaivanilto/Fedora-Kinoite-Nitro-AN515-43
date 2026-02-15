@@ -1,14 +1,40 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 name: fedora-kinoite-nitro-an515-43
-description: Fedora Kinoite (Fedora 44 / Nvidia) optimized for Acer Nitro 5 (AN515-43).
+description: Fedora Kinoite (Fedora 43 / Nvidia) optimized for Acer Nitro 5 (AN515-43).
 base-image: ghcr.io/ublue-os/kinoite-nvidia
-image-version: 44
+image-version: 43
 
 modules:
+  # 1. Enable KDE Beta Repository
+  - type: dnf
+    repos:
+      copr:
+        - "@kdesig/kde-beta"
+
+  # 2. Perform Full System Update (KDE Beta + Official Repos)
+  - type: script
+    scripts:
+      - upgrade-kde-beta.sh
+
+  # 3. Install New Login Manager (After system is updated)
+  - type: dnf
+    install:
+      packages:
+        - plasma-login-manager
+        - kcm-plasmalogin
+
+  # 4. Enable Login Manager Service
+  - type: systemd
+    system:
+      enabled:
+        - plasmalogin.service
+
+  # 5. Purge Legacy Components (AFTER new manager is ready)
   - type: dnf
     remove:
       packages:
+        - sddm
         - tuned
         - tuned-ppd
         - firefox
@@ -54,13 +80,13 @@ modules:
         - ibus-m17n
         - kasumi-common
         - kasumi-unicode
-        - sddm
         - htop
         - nvtop
         - kate
         - kate-krunner-plugin
         - kate-plugins
 
+  # 6. Install Core Applications & Utilities
   - type: dnf
     install:
       packages:
@@ -80,11 +106,13 @@ modules:
         - plasma-discover-rpm-ostree
         - plasma-firewall
 
+  # 7. Local RPM Preparation
   - type: files
     files:
       - source: files/rpms
         destination: /tmp/rpms
 
+  # 8. Service Configuration
   - type: systemd
     system:
       enabled:
@@ -97,6 +125,7 @@ modules:
         - systemd-rfkill.service
         - systemd-rfkill.socket
 
+  # 9. Hardware & User Customization Scripts
   - type: script
     scripts:
       - install-oh-my-bash.sh
