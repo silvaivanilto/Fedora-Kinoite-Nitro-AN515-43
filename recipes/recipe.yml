@@ -1,16 +1,19 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 name: fedora-kinoite-nitro-an515-43
-description: Custom Fedora Kinoite (Fedora 43 / KDE Plasma Master / Nvidia) optimized for the Acer Nitro 5 (AN515-43). Bleeding Edge Edition.
+description: Fedora Kinoite (Fedora 43 / KDE Plasma Master / Nvidia) optimized for the Acer Nitro 5 (AN515-43).
 
 base-image: ghcr.io/ublue-os/kinoite-nvidia
 image-version: 43
 
 modules:
   #
-  # Module 1: Pre-requisite RPMs
+  # Module 1: Repository Management
   #
   - type: dnf
+    repos:
+      copr:
+        - "@kdesig/kde-beta"
     install:
       packages:
         - /tmp/files/rpms/tlp-release.fc43.noarch.rpm
@@ -25,16 +28,16 @@ modules:
         - tuned-ppd
 
   #
-  # Module 3: Main Package Installation & Repositories
+  # Module 3: Main Package Installation
   #
   - type: dnf
-    repos:
-      copr:
-        - "@kdesig/kde-beta"
-
     install:
       packages:
-        # Container Management (Already in base image: distrobox)
+        # Container Management
+        - distrobox
+
+        # Tools
+        - kwrite
 
         # KDE Plasma - Login Manager (Install FIRST to satisfy dependencies)
         - kcm-plasmalogin
@@ -56,7 +59,22 @@ modules:
         - tlp-rdw
 
   #
-  # Module 4: Safe Removals (Executed after installation)
+  # Module 4: Systemd Service Management
+  #
+  - type: systemd
+    system:
+      enabled:
+        - nvidia-powerd.service
+        - plasmalogin.service
+        - rpm-ostreed-automatic.timer
+        - tlp.service
+        - tlp-pd.service
+      masked:
+        - systemd-rfkill.service
+        - systemd-rfkill.socket
+
+  #
+  # Module 5: Safe Removals (Executed after service activation)
   #
   - type: dnf
     remove:
@@ -111,9 +129,6 @@ modules:
         - kasumi-unicode
         # Login Manager (replaced by Plasma Login)
         - sddm
-        - sddm-breeze
-        - sddm-kcm
-        - sddm-wayland-plasma
         # Power Management (Already removed in Module 2)
         # - tuned
         # - tuned-ppd
@@ -127,12 +142,19 @@ modules:
         - kate-plugins
 
   #
-  # Module 5: Homebrew
+  # Module 6: System Upgrade (Plasma Beta/Master)
+  #
+  - type: script
+    scripts:
+      - upgrade-kde-beta.sh
+
+  #
+  # Module 7: Homebrew
   #
   - type: brew
 
   #
-  # Module 6: Fonts
+  # Module 8: Fonts
   #
   - type: fonts
     fonts:
@@ -143,7 +165,7 @@ modules:
         - Fira Mono
 
   #
-  # Module 7: Arbitrary Files
+  # Module 9: Arbitrary Files
   #
   - type: files
     files:
@@ -151,12 +173,11 @@ modules:
         destination: /tmp/rpms
 
   #
-  # Module 8: Custom Configuration Scripts
+  # Module 10: Custom Configuration Scripts
   #
   - type: script
     scripts:
       # System Modernization
-      - upgrade-kde-beta.sh # Upgrades KDE Plasma to latest git/beta
       - install-oh-my-bash.sh # Sets up shell environment with plugins
 
       # Hardware Optimization
@@ -170,7 +191,7 @@ modules:
       - configure-grub.sh # Manages bootloader settings
 
   #
-  # Module 9: Flatpak Applications
+  # Module 11: Flatpak Applications
   #
   - type: default-flatpaks
     configurations:
@@ -189,7 +210,6 @@ modules:
           - org.kde.koko
           - org.kde.marknote
           - io.github.DenysMb.Kontainer
-          - org.kde.merkuro
       - scope: user
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -197,21 +217,6 @@ modules:
         remove-repo: true
 
   #
-  # Module 10: Systemd Service Management
-  #
-  - type: systemd
-    system:
-      enabled:
-        - nvidia-powerd.service
-        - plasmalogin.service
-        - rpm-ostreed-automatic.timer
-        - tlp.service
-        - tlp-pd.service
-      masked:
-        - systemd-rfkill.service
-        - systemd-rfkill.socket
-
-  #
-  # Module 11: Container Signing
+  # Module 12: Container Signing
   #
   - type: signing

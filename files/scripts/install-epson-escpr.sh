@@ -13,7 +13,7 @@ echo "Installing Epson printer drivers from local repository..."
 # Security: Verify checksum before installing unsigned RPM
 RPM_FILE="/tmp/files/rpms/epson-inkjet-printer-escpr-1.8.6-1.x86_64.rpm"
 # TODO: Replace with the actual SHA256 hash of your RPM file
-EXPECTED_HASH="PLACEHOLDER_HASH_REPLACE_ME_WITH_REAL_SHA256"
+EXPECTED_HASH="9181f44577296c3c0e441642be9e6ea05827d545b1a654cd0a1d659c30d57162"
 
 if [ -f "$RPM_FILE" ]; then
     echo "Verifying integrity of $RPM_FILE..."
