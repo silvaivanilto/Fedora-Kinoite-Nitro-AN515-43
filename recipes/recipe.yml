@@ -7,24 +7,35 @@ base-image: ghcr.io/ublue-os/kinoite-nvidia
 image-version: 43
 
 modules:
+  #
+  # Module 1: Pre-requisite RPMs
+  #
   - type: dnf
     install:
       packages:
         - /tmp/files/rpms/tlp-release.fc43.noarch.rpm
 
+  #
+  # Module 2: Pre-Installation Cleanup (Conflict Resolution)
+  #
+  - type: dnf
+    remove:
+      packages:
+        - tuned
+        - tuned-ppd
+
+  #
+  # Module 3: Main Package Installation & Repositories
+  #
   - type: dnf
     repos:
       copr:
         - "@kdesig/kde-beta"
-        - jhyub/supergfxctl-plasmoid
-        - lukenukem/asus-linux
+
     install:
       packages:
-        # Container Management
-        - distrobox
-        # Hybrid Graphics
-        - supergfxctl
-        - supergfxctl-plasmoid
+        # Container Management (Already in base image: distrobox)
+
         # KDE Plasma - Login Manager (Install FIRST to satisfy dependencies)
         - kcm-plasmalogin
         - plasma-discover-rpm-ostree
@@ -44,7 +55,9 @@ modules:
         - tlp-pd
         - tlp-rdw
 
-  # Module 2: Safe Removals (Executed after installation)
+  #
+  # Module 4: Safe Removals (Executed after installation)
+  #
   - type: dnf
     remove:
       packages:
@@ -101,9 +114,9 @@ modules:
         - sddm-breeze
         - sddm-kcm
         - sddm-wayland-plasma
-        # Power Management (replaced by TLP)
-        - tuned
-        - tuned-ppd
+        # Power Management (Already removed in Module 2)
+        # - tuned
+        # - tuned-ppd
         # System Monitors
         - htop
         - nvtop
@@ -113,8 +126,14 @@ modules:
         - kate-libs
         - kate-plugins
 
+  #
+  # Module 5: Homebrew
+  #
   - type: brew
 
+  #
+  # Module 6: Fonts
+  #
   - type: fonts
     fonts:
       nerd-fonts:
@@ -123,22 +142,36 @@ modules:
         - Fira Sans
         - Fira Mono
 
+  #
+  # Module 7: Arbitrary Files
+  #
   - type: files
     files:
       - source: rpms
         destination: /tmp/rpms
 
+  #
+  # Module 8: Custom Configuration Scripts
+  #
   - type: script
     scripts:
-      - upgrade-kde-beta.sh
-      - setup-tlp.sh
-      - install-epson-escpr.sh
-      - install-chrome.sh
-      - install-oh-my-bash.sh
-      - setup-root-theme-sync.sh
-      - configure-grub.sh
-      - configure-nvidia.sh
+      # System Modernization
+      - upgrade-kde-beta.sh # Upgrades KDE Plasma to latest git/beta
+      - install-oh-my-bash.sh # Sets up shell environment with plugins
 
+      # Hardware Optimization
+      - setup-tlp.sh # Configures advanced power management
+      - configure-nvidia.sh # Optimizes Nvidia driver settings
+      - install-epson-escpr.sh # Installs printer drivers (unsigned RPMs)
+
+      # User Experience
+      - install-chrome.sh # Installs Google Chrome Stable
+      - setup-root-theme-sync.sh # Syncs root theme with admin user
+      - configure-grub.sh # Manages bootloader settings
+
+  #
+  # Module 9: Flatpak Applications
+  #
   - type: default-flatpaks
     configurations:
       - scope: system
@@ -163,17 +196,22 @@ modules:
           name: flathub
         remove-repo: true
 
+  #
+  # Module 10: Systemd Service Management
+  #
   - type: systemd
     system:
       enabled:
         - nvidia-powerd.service
         - plasmalogin.service
         - rpm-ostreed-automatic.timer
-        - supergfxd.service
         - tlp.service
         - tlp-pd.service
       masked:
         - systemd-rfkill.service
         - systemd-rfkill.socket
 
+  #
+  # Module 11: Container Signing
+  #
   - type: signing
