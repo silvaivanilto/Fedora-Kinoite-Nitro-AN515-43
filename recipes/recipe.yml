@@ -11,39 +11,32 @@ modules:
     repos:
       copr:
         - "@kdesig/kde-beta"
-
-  # 2. Perform Full System Update (KDE Beta + Official Repos)
-  - type: script
-    scripts:
-      - upgrade-kde-beta.sh
-
-  # 3. Install New Login Manager (After system is updated)
-  - type: dnf
     install:
       packages:
-        - plasma-login-manager
-        - kcm-plasmalogin
+        - "https://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release.fc43.noarch.rpm"
 
-  # 4. Enable Login Manager Service
-  - type: systemd
-    system:
-      enabled:
-        - plasmalogin.service
-
-  # 5. Purge Legacy Components (AFTER new manager is ready)
+  # 2. Purge Legacy Components
   - type: dnf
     remove:
       packages:
-        - sddm
+        # Power Management (Conflicts with TLP)
         - tuned
         - tuned-ppd
+
+        # Browsers & Runtimes
         - firefox
         - firefox-langpacks
         - mozilla-filesystem
+
+        # System Utilities & Bloat
         - toolbox
         - firewall-config
         - kdebugsettings
         - plasma-drkonqi
+        - htop
+        - nvtop
+
+        # Input Methods (Fcitx5)
         - fcitx5
         - fcitx5-autostart
         - fcitx5-chewing
@@ -72,6 +65,8 @@ modules:
         - libchewing
         - libime
         - libime-data
+
+        # Input Methods (Ibus)
         - ibus-anthy
         - ibus-anthy-python
         - ibus-chewing
@@ -80,39 +75,39 @@ modules:
         - ibus-m17n
         - kasumi-common
         - kasumi-unicode
-        - htop
-        - nvtop
-        - kate
-        - kate-krunner-plugin
-        - kate-plugins
 
-  # 6. Install Core Applications & Utilities
+  # 3. Install Core Applications & Utilities
   - type: dnf
     install:
       packages:
+        # Office Suite (Productivity)
         - libreoffice-calc
         - libreoffice-draw
-        - libreoffice-graphicfilter
+        - libreoffice-filters
         - libreoffice-impress
         - libreoffice-kf6
         - libreoffice-langpack-pt-BR
         - libreoffice-math
         - libreoffice-writer
+
+        # Power Management
         - tlp
         - tlp-pd
         - tlp-rdw
         - switcheroo-control
+
+        # System Integration & Tools
         - distrobox
         - plasma-discover-rpm-ostree
         - plasma-firewall
 
-  # 7. Local RPM Preparation
+  # 4. Local RPM Preparation
   - type: files
     files:
       - source: files/rpms
         destination: /tmp/rpms
 
-  # 8. Service Configuration
+  # 5. Service Configuration
   - type: systemd
     system:
       enabled:
@@ -125,9 +120,10 @@ modules:
         - systemd-rfkill.service
         - systemd-rfkill.socket
 
-  # 9. Hardware & User Customization Scripts
+  # 6. Hardware & User Customization Scripts
   - type: script
     scripts:
+      - upgrade-kde-beta.sh
       - install-oh-my-bash.sh
       - setup-tlp.sh
       - configure-nvidia.sh
@@ -162,7 +158,6 @@ modules:
           - org.kde.kalk
           - org.kde.koko
           - org.kde.marknote
-          - org.kde.kwrite
           - org.kde.merkuro
           - io.github.DenysMb.Kontainer
       - scope: user
