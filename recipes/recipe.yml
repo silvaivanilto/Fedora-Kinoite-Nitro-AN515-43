@@ -139,7 +139,6 @@ modules:
   # 9. Customization Scripts (Hardware & User)
   - type: script
     scripts:
-      - upgrade-kde-beta.sh # KDE Plasma Upgrade
       - install-oh-my-bash.sh # Terminal Setup
       - configure-nvidia.sh # GPU Power Management
       - setup-root-theme-sync.sh # Root Theme Sync
