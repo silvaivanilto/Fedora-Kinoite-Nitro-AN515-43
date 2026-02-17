@@ -104,10 +104,12 @@ modules:
   - type: fonts
     fonts:
       nerd-fonts:
+        - JetBrainsMono
         - NerdFontsSymbolsOnly
       google-fonts:
         - Fira Mono
         - Fira Sans
+        - Google Sans Flex
 
   # 7. Flatpaks (Flathub)
   - type: default-flatpaks
