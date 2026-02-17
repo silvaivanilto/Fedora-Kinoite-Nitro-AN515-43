@@ -6,134 +6,94 @@ base-image: ghcr.io/ublue-os/kinoite-nvidia
 image-version: 43
 
 modules:
-  # 1. Enable KDE Beta Repository
+  # 1. Repository Configuration
   - type: dnf
     repos:
       copr:
         - "@kdesig/kde-beta"
-    install:
-      packages:
-        - "https://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release.fc43.noarch.rpm"
 
-  # 2. Purge Legacy Components
-  - type: dnf
+  # 2. System Base (RPM-OSTree) - Removals
+  - type: rpm-ostree
     remove:
-      packages:
-        # Power Management (Conflicts with TLP)
-        - tuned
-        - tuned-ppd
+      # Browsers & Runtimes
+      - firefox
+      - firefox-langpacks
 
-        # Browsers & Runtimes
-        - firefox
-        - firefox-langpacks
-        # - mozilla-filesystem # Preserving to avoid dependency chain removal
+      # System Utilities & Bloat
+      - toolbox
+      - firewall-config
+      - kdebugsettings
+      - plasma-drkonqi
+      - htop
+      - nvtop
 
-        # System Utilities & Bloat
-        - toolbox
-        - firewall-config
-        - kdebugsettings
-        - plasma-drkonqi
-        - htop
-        - nvtop
+      # Core & Configuration
+      - fcitx5
+      - fcitx5-configtool
+      - fcitx5-data
+      - fcitx5-libs
+      - fcitx5-lua
+      - fcitx5-m17n
+      - kcm-fcitx5
 
-        # Input Methods (Fcitx5) - Commented to preserve desktop environment
-        # - fcitx5
-        # - fcitx5-autostart
-        # - fcitx5-chewing
-        # - fcitx5-chinese-addons
-        # - fcitx5-chinese-addons-data
-        # - fcitx5-configtool
-        # - fcitx5-data
-        # - fcitx5-gtk
-        # - fcitx5-gtk3
-        # - fcitx5-gtk4
-        # - fcitx5-hangul
-        # - fcitx5-libs
-        # - fcitx5-libthai
-        # - fcitx5-lua
-        # - fcitx5-m17n
-        # - fcitx5-mozc
-        # - fcitx5-qt
-        # - fcitx5-qt-libfcitx5qt6widgets
-        # - fcitx5-qt-libfcitx5qtdbus
-        # - fcitx5-qt-qt6gui
-        # - fcitx5-qt5
-        # - fcitx5-qt6
-        # - fcitx5-sayura
-        # - fcitx5-unikey
-        # - kcm-fcitx5
-        # - libchewing
-        # - libime
-        # - libime-data
+      # UI Modules
+      - fcitx5-gtk
+      - fcitx5-gtk3
+      - fcitx5-gtk4
+      - fcitx5-qt
+      - fcitx5-qt-libfcitx5qt6widgets
+      - fcitx5-qt-libfcitx5qtdbus
+      - fcitx5-qt-qt6gui
+      - fcitx5-qt5
+      - fcitx5-qt6
 
-        # Input Methods (Ibus) - Commented to preserve desktop environment
-        # - ibus-anthy
-        # - ibus-anthy-python
-        # - ibus-chewing
-        # - ibus-hangul
-        # - ibus-libpinyin
-        # - ibus-m17n
-        # - kasumi-common
-        # - kasumi-unicode
+      # Fcitx5 Language Engines
+      - fcitx5-chewing
+      - fcitx5-chinese-addons
+      - fcitx5-chinese-addons-data
+      - fcitx5-hangul
+      - fcitx5-libthai
+      - fcitx5-mozc
+      - fcitx5-sayura
+      - fcitx5-unikey
 
-  # 3. Install Core Applications & Utilities
-  - type: dnf
+      # Exclusive Fcitx5 Dependencies
+      - libime
+      - libime-data
+      - xcb-imdkit
+
+  # 2. System Base (RPM-OSTree) - Installations
+  - type: rpm-ostree
     install:
-      packages:
-        # Office Suite (Productivity)
-        - libreoffice-calc
-        - libreoffice-draw
-        - libreoffice-filters
-        - libreoffice-impress
-        - libreoffice-kf6
-        - libreoffice-langpack-pt-BR
-        - libreoffice-math
-        - libreoffice-writer
+      # Office Suite
+      - libreoffice-calc
+      - libreoffice-draw
+      - libreoffice-filters
+      - libreoffice-impress
+      - libreoffice-kf6
+      - libreoffice-langpack-pt-BR
+      - libreoffice-writer
 
-        # Power Management
-        - tlp
-        - tlp-pd
-        - tlp-rdw
-        - switcheroo-control
+      # Power Management
+      - switcheroo-control
 
-        # System Integration & Tools
-        - distrobox
-        - plasma-discover-rpm-ostree
-        - plasma-firewall
+      # System Integration & Tools
+      - distrobox
+      - plasma-discover-rpm-ostree
+      - plasma-firewall
 
-  # 4. Local RPM Preparation
+  # 4. Files (Static Configuration)
   - type: files
     files:
       - source: rpms
         destination: /tmp/rpms
+      - source: etc/rpm-ostreed.conf
+        destination: /etc/rpm-ostreed.conf
 
-  # 5. Service Configuration
-  - type: systemd
-    system:
-      enabled:
-        - nvidia-powerd.service
-        - rpm-ostreed-automatic.timer
-        - tlp.service
-        - tlp-pd.service
-        - switcheroo-control.service
-      masked:
-        - systemd-rfkill.service
-        - systemd-rfkill.socket
-
-  # 6. Hardware & User Customization Scripts
-  - type: script
-    scripts:
-      - upgrade-kde-beta.sh
-      - install-oh-my-bash.sh
-      - setup-tlp.sh
-      - configure-nvidia.sh
-      - install-chrome.sh
-      - setup-root-theme-sync.sh
-      - configure-grub.sh
-      - install-epson-escpr.sh
-
+  # 5. Homebrew
   - type: brew
 
+  # 6. Fonts
   - type: fonts
     fonts:
       nerd-fonts:
@@ -142,15 +102,17 @@ modules:
         - Fira Sans
         - Fira Mono
 
+  # 7. Flatpaks (Flathub)
   - type: default-flatpaks
     configurations:
       - scope: system
-        notify: true
+        notify: false
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
           name: flathub
           title: Flathub
         install:
+          - com.google.Chrome
           - org.kde.okular
           - org.kde.elisa
           - org.kde.haruna
@@ -166,4 +128,23 @@ modules:
           name: flathub
         remove-repo: true
 
+  # 8. Service Configuration (Systemd)
+  - type: systemd
+    system:
+      enabled:
+        - nvidia-powerd.service
+        - rpm-ostreed-automatic.timer
+        - switcheroo-control.service
+
+  # 9. Customization Scripts (Hardware & User)
+  - type: script
+    scripts:
+      - upgrade-kde-beta.sh # KDE Plasma Upgrade
+      - install-oh-my-bash.sh # Terminal Setup
+      - configure-nvidia.sh # GPU Power Management
+      - setup-root-theme-sync.sh # Root Theme Sync
+      - configure-grub.sh # Bootloader Configuration
+      - install-epson-escpr.sh # Printer Drivers
+
+  # 10. Image Signing (Cosign)
   - type: signing
