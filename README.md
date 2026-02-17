@@ -9,14 +9,13 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 ### 🎮 Graphics & Performance
 *   **Base:** `ghcr.io/ublue-os/kinoite-nvidia:43` (Fedora Atomic 43).
 *   **Nvidia Drivers:** Proprietary drivers pre-installed with **Dynamic Power Management** enabled (`NVreg_DynamicPowerManagement=0x02`).
+*   **supergfxctl:** Hybrid GPU management service enabled for seamless GPU switching.
+*   **KDE Bleeding Edge:** Plasma packages updated from the `@kdesig/kde-beta` COPR at every build.
 *   **Native Experience:** Uses the native Fedora 43 Plasma Login Manager and system settings.
 *   **Discover:** Full **rpm-ostree** support enabled within Discover for GUI system management.
 
 ### 🔋 Power & Battery Health
-*   **TLP:** Advanced power management with specific **Acer Nitro 5 Battery Thresholds** (Start: 75% / Stop: 80%).
-*   **TLP-PD:** TLP Power Profiles Daemon (v1.9+) integrated for advanced profile switching.
 *   **Nvidia Powerd:** Enabled for dynamic thermal and power balancing.
-*   **Radio Management:** `systemd-rfkill` masked to prevent conflicts with TLP's radio state management.
 
 ### 🛠️ Developer & System Tools
 *   **Default Browser:** **Google Chrome** (RPM) pre-installed and set as default.
@@ -29,7 +28,7 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 *   **Epson Drivers:** `epson-inkjet-printer-escpr` installed with SHA256 integrity verification for reliability.
 
 ### 📦 Clean & Lean System
-*   **Removed Bloat:** Firefox, SDDM, Kate, fcitx5, tuned, and Toolbox have been removed.
+*   **Removed Bloat:** Firefox, SDDM, Kate, fcitx5, and Toolbox have been removed.
 *   **KWrite Flatpak:** KWrite installed via Flathub for easier updates.
 *   **Flatpaks:** Flathub (system-wide) configured with a curated selection of KDE apps.
 
@@ -40,14 +39,14 @@ recipes/
 └── recipe.yml                  # Main BlueBuild configuration
 files/scripts/
 ├── swap-display-manager.sh     # Swaps SDDM → Plasma Login Manager
-├── setup-tlp.sh                # Full TLP setup: repo, packages, config & services
 ├── install-chrome.sh           # Chrome RPM & default browser config
 ├── install-antigravity.sh      # Antigravity Auto-Updater
 ├── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
 ├── configure-nvidia.sh         # Dynamic Power Management setup
 ├── setup-root-theme-sync.sh    # Syncs visual settings to root
 ├── configure-grub.sh           # Atomic-safe GRUB configuration
-└── install-epson-escpr.sh      # Driver installation with Hash Check
+├── install-epson-escpr.sh      # Driver installation with Hash Check
+└── upgrade-kde-beta.sh         # Upgrades KDE packages from COPR
 .github/workflows/
 ├── build.yml                   # CI/CD + Image Signing (Cosign)
 └── generate-iso.yml            # Auto-ISO Release generation
@@ -68,10 +67,11 @@ To rebase an existing Fedora Atomic (Silverblue/Kinoite) installation:
     ```
 
 ### 🪟 Dual Boot & GRUB
-The image is configured to detect other OSs and remember your last boot choice. For this to take effect on an Atomic system, run:
+The image includes `os-prober` and a firstboot service (`grub-os-detect.service`) that **automatically detects Windows** and updates the GRUB configuration on the first boot.
+
+If you need to re-detect (e.g., after installing/removing another OS):
 ```bash
-# For UEFI systems (modern laptops)
-sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+sudo rm /var/lib/.grub-os-detect-done && systemctl reboot
 ```
 
 ## 🔐 Verification & Maintenance

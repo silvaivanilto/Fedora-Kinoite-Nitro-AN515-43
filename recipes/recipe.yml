@@ -27,6 +27,9 @@ modules:
       # Power Management
       - switcheroo-control
 
+      # Bootloader (Dual-Boot)
+      - os-prober
+
       # System Integration & Tools
       - distrobox
       - plasma-discover-rpm-ostree
@@ -104,9 +107,9 @@ modules:
   - type: fonts
     fonts:
       nerd-fonts:
-        - JetBrainsMono
         - NerdFontsSymbolsOnly
       google-fonts:
+        - JetBrains Mono
         - Fira Mono
         - Fira Sans
         - Google Sans Flex
@@ -144,20 +147,21 @@ modules:
       enabled:
         - nvidia-powerd.service
         - rpm-ostreed-automatic.timer
+        - supergfxd.service
         - switcheroo-control.service
 
   # 9. Configuration Scripts (Execution Order)
   - type: script
     scripts:
       - swap-display-manager.sh # 1. Display Manager (SDDM → Plasma Login)
-      - setup-tlp.sh # 2. Power Management (TLP + Battery)
-      - install-chrome.sh # 3. Browser (Chrome RPM)
-      - install-antigravity.sh # 4. Antigravity Auto-Updater
-      - install-oh-my-bash.sh # 5. Terminal Setup (Oh My Bash)
-      - configure-nvidia.sh # 6. GPU Power Management
-      - setup-root-theme-sync.sh # 7. Root Theme Sync
-      - configure-grub.sh # 8. Bootloader Configuration
-      - install-epson-escpr.sh # 9. Printer Drivers
+      - install-chrome.sh # 2. Browser (Chrome RPM)
+      - install-antigravity.sh # 3. Antigravity Auto-Updater
+      - install-oh-my-bash.sh # 4. Terminal Setup (Oh My Bash)
+      - configure-nvidia.sh # 5. GPU Power Management
+      - setup-root-theme-sync.sh # 6. Root Theme Sync
+      - configure-grub.sh # 7. Bootloader Configuration
+      - install-epson-escpr.sh # 8. Printer Drivers
+      - upgrade-kde-beta.sh # 9. Upgrade KDE Packages (COPR)
 
   # 10. Image Signing (Cosign)
   - type: signing
