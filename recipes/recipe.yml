@@ -20,7 +20,6 @@ modules:
       - firefox-langpacks
 
       # System Utilities & Bloat
-      - toolbox
       - firewall-config
       - kdebugsettings
       - plasma-drkonqi
@@ -78,7 +77,6 @@ modules:
       - switcheroo-control
 
       # System Integration & Tools
-      - distrobox
       - plasma-discover-rpm-ostree
       - plasma-firewall
 
@@ -121,7 +119,6 @@ modules:
           - org.kde.koko
           - org.kde.marknote
           - org.kde.merkuro
-          - io.github.DenysMb.Kontainer
       - scope: user
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
