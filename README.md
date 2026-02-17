@@ -29,7 +29,8 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 *   **Epson Drivers:** `epson-inkjet-printer-escpr` installed with SHA256 integrity verification for reliability.
 
 ### 📦 Clean & Lean System
-*   **Removed Bloat:** Firefox, SDDM, fcitx5, tuned, and Toolbox have been removed.
+*   **Removed Bloat:** Firefox, SDDM, Kate, fcitx5, tuned, and Toolbox have been removed.
+*   **KWrite Flatpak:** KWrite installed via Flathub for easier updates.
 *   **Flatpaks:** Flathub (system-wide) configured with a curated selection of KDE apps.
 
 ## 📁 Project Structure

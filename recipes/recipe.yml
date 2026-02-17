@@ -89,28 +89,6 @@ modules:
       - libime-data
       - xcb-imdkit
 
-<<<<<<< HEAD
-=======
-  # 2. System Base (RPM-OSTree) - Installations
-  - type: rpm-ostree
-    install:
-      # Office Suite
-      - libreoffice-calc
-      - libreoffice-draw
-      - libreoffice-filters
-      - libreoffice-impress
-      - libreoffice-kf6
-      - libreoffice-langpack-pt-BR
-      - libreoffice-writer
-
-      # Power Management
-      - switcheroo-control
-
-      # System Integration & Tools
-      - plasma-discover-rpm-ostree
-      - plasma-firewall
-
->>>>>>> d49ae44a084ac3abe1aa6783f0f9795f7addee62
   # 4. Files (Static Configuration)
   - type: files
     files:
@@ -149,11 +127,8 @@ modules:
           - org.kde.kwrite
           - org.kde.marknote
           - org.kde.merkuro
-<<<<<<< HEAD
           - org.kde.okular
           - org.kde.skanpage
-=======
->>>>>>> d49ae44a084ac3abe1aa6783f0f9795f7addee62
       - scope: user
         notify: false
         repo:
