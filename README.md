@@ -4,12 +4,12 @@ Custom **Fedora Kinoite** (Nvidia) image optimized for the Acer Nitro 5 (AN515-4
 
 ## 🚀 Key Features
 
-This image is built on `ghcr.io/ublue-os/kinoite-nvidia:44` and heavily customized for the Nitro 5 hardware.
+This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customized for the Nitro 5 hardware.
 
 ### 🎮 Graphics & Performance
-*   **Base:** `ghcr.io/ublue-os/kinoite-nvidia:44` (Fedora Atomic 44).
+*   **Base:** `ghcr.io/ublue-os/kinoite-nvidia:43` (Fedora Atomic 43).
 *   **Nvidia Drivers:** Proprietary drivers pre-installed with **Dynamic Power Management** enabled (`NVreg_DynamicPowerManagement=0x02`).
-*   **Native Experience:** Uses the native Fedora 44 Plasma Login Manager and system settings.
+*   **Native Experience:** Uses the native Fedora 43 Plasma Login Manager and system settings.
 *   **Discover:** Full **rpm-ostree** support enabled within Discover for GUI system management.
 
 ### 🔋 Power & Battery Health
@@ -19,10 +19,9 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:44` and heavily customiz
 *   **Radio Management:** `systemd-rfkill` masked to prevent conflicts with TLP's radio state management.
 
 ### 🛠️ Developer & System Tools
-*   **Default Browser:** **Google Chrome** (RPM) pre-installed and set as system default.
+*   **Default Browser:** **Google Chrome** (RPM) pre-installed and set as default.
 *   **Terminal:** **Oh My Bash** pre-installed in `/etc/skel` with the **Powerline** theme and productivity plugins (`git`, `bash-completion`).
 *   **Container Management:** **Distrobox** (replaces Toolbox).
-*   **KWrite:** Installed as a **Flatpak** for easier updates and environment isolation.
 *   **Homebrew:** Linuxbrew manager pre-installed and configured with daily auto-update/upgrade timers.
 *   **Theme Sync:** Custom systemd service to sync root user theme with the primary user (Wheel group).
 
@@ -30,7 +29,7 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:44` and heavily customiz
 *   **Epson Drivers:** `epson-inkjet-printer-escpr` installed with SHA256 integrity verification for reliability.
 
 ### 📦 Clean & Lean System
-*   **Removed Bloat:** Firefox, SDDM, fcitx5, ibus engines, Kate, and Toolbox have been removed.
+*   **Removed Bloat:** Firefox, SDDM, fcitx5, tuned, and Toolbox have been removed.
 *   **Flatpaks:** Flathub (system-wide) configured with a curated selection of KDE apps.
 
 ## 📁 Project Structure
@@ -39,13 +38,15 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:44` and heavily customiz
 recipes/
 └── recipe.yml                  # Main BlueBuild configuration
 files/scripts/
-├── setup-tlp.sh                # Configures TLP & Battery Thresholds
+├── swap-display-manager.sh     # Swaps SDDM → Plasma Login Manager
+├── setup-tlp.sh                # Full TLP setup: repo, packages, config & services
+├── install-chrome.sh           # Chrome RPM & default browser config
+├── install-antigravity.sh      # Antigravity Auto-Updater
+├── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
 ├── configure-nvidia.sh         # Dynamic Power Management setup
 ├── setup-root-theme-sync.sh    # Syncs visual settings to root
 ├── configure-grub.sh           # Atomic-safe GRUB configuration
-├── install-epson-escpr.sh      # Driver installation with Hash Check
-├── install-chrome.sh           # Chrome & MIME settings
-└── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
+└── install-epson-escpr.sh      # Driver installation with Hash Check
 .github/workflows/
 ├── build.yml                   # CI/CD + Image Signing (Cosign)
 └── generate-iso.yml            # Auto-ISO Release generation

@@ -6,26 +6,53 @@ base-image: ghcr.io/ublue-os/kinoite-nvidia
 image-version: 43
 
 modules:
-  # 1. Repository Configuration
+  # 1. Repository Configuration (COPR)
   - type: dnf
     repos:
       copr:
         - "@kdesig/kde-beta"
 
-  # 2. System Base (RPM-OSTree) - Removals
+  # 2. System Base (RPM-OSTree) - Installations
+  - type: rpm-ostree
+    install:
+      # Office Suite
+      - libreoffice-calc
+      - libreoffice-draw
+      - libreoffice-filters
+      - libreoffice-impress
+      - libreoffice-kf6
+      - libreoffice-langpack-pt-BR
+      - libreoffice-writer
+
+      # Power Management
+      - switcheroo-control
+
+      # System Integration & Tools
+      - distrobox
+      - plasma-discover-rpm-ostree
+      - plasma-firewall
+
+  # 3. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
       # Browsers & Runtimes
       - firefox
       - firefox-langpacks
 
+      # Text Editor (Kate/KWrite → Flatpak)
+      - kate
+      - kate-libs
+      - kate-plugins
+      - kate-krunner-plugin
+      - kwrite
+
       # System Utilities & Bloat
-      - toolbox
       - firewall-config
-      - kdebugsettings
-      - plasma-drkonqi
       - htop
+      - kdebugsettings
       - nvtop
+      - plasma-drkonqi
+      - toolbox
 
       # Core & Configuration
       - fcitx5
@@ -62,26 +89,6 @@ modules:
       - libime-data
       - xcb-imdkit
 
-  # 2. System Base (RPM-OSTree) - Installations
-  - type: rpm-ostree
-    install:
-      # Office Suite
-      - libreoffice-calc
-      - libreoffice-draw
-      - libreoffice-filters
-      - libreoffice-impress
-      - libreoffice-kf6
-      - libreoffice-langpack-pt-BR
-      - libreoffice-writer
-
-      # Power Management
-      - switcheroo-control
-
-      # System Integration & Tools
-      - distrobox
-      - plasma-discover-rpm-ostree
-      - plasma-firewall
-
   # 4. Files (Static Configuration)
   - type: files
     files:
@@ -99,8 +106,8 @@ modules:
       nerd-fonts:
         - NerdFontsSymbolsOnly
       google-fonts:
-        - Fira Sans
         - Fira Mono
+        - Fira Sans
 
   # 7. Flatpaks (Flathub)
   - type: default-flatpaks
@@ -112,17 +119,18 @@ modules:
           name: flathub
           title: Flathub
         install:
-          - com.google.Chrome
-          - org.kde.okular
+          - io.github.DenysMb.Kontainer
           - org.kde.elisa
           - org.kde.haruna
-          - org.kde.skanpage
           - org.kde.kalk
           - org.kde.koko
+          - org.kde.kwrite
           - org.kde.marknote
           - org.kde.merkuro
-          - io.github.DenysMb.Kontainer
+          - org.kde.okular
+          - org.kde.skanpage
       - scope: user
+        notify: false
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
           name: flathub
@@ -136,14 +144,18 @@ modules:
         - rpm-ostreed-automatic.timer
         - switcheroo-control.service
 
-  # 9. Customization Scripts (Hardware & User)
+  # 9. Configuration Scripts (Execution Order)
   - type: script
     scripts:
-      - install-oh-my-bash.sh # Terminal Setup
-      - configure-nvidia.sh # GPU Power Management
-      - setup-root-theme-sync.sh # Root Theme Sync
-      - configure-grub.sh # Bootloader Configuration
-      - install-epson-escpr.sh # Printer Drivers
+      - swap-display-manager.sh # 1. Display Manager (SDDM → Plasma Login)
+      - setup-tlp.sh # 2. Power Management (TLP + Battery)
+      - install-chrome.sh # 3. Browser (Chrome RPM)
+      - install-antigravity.sh # 4. Antigravity Auto-Updater
+      - install-oh-my-bash.sh # 5. Terminal Setup (Oh My Bash)
+      - configure-nvidia.sh # 6. GPU Power Management
+      - setup-root-theme-sync.sh # 7. Root Theme Sync
+      - configure-grub.sh # 8. Bootloader Configuration
+      - install-epson-escpr.sh # 9. Printer Drivers
 
   # 10. Image Signing (Cosign)
   - type: signing

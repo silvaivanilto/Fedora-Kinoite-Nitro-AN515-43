@@ -5,6 +5,20 @@ set -ouex pipefail
 GRUB_FILE="/etc/default/grub"
 [ ! -f "$GRUB_FILE" ] && touch "$GRUB_FILE"
 
-grep -q "GRUB_DISABLE_OS_PROBER" "$GRUB_FILE" && sed -i 's/^GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/' "$GRUB_FILE" || echo "GRUB_DISABLE_OS_PROBER=false" >> "$GRUB_FILE"
-grep -q "GRUB_SAVEDEFAULT" "$GRUB_FILE" && sed -i 's/^GRUB_SAVEDEFAULT=.*/GRUB_SAVEDEFAULT=true/' "$GRUB_FILE" || echo "GRUB_SAVEDEFAULT=true" >> "$GRUB_FILE"
-grep -q "GRUB_DEFAULT" "$GRUB_FILE" && sed -i 's/^GRUB_DEFAULT=.*/GRUB_DEFAULT=saved/' "$GRUB_FILE" || echo "GRUB_DEFAULT=saved" >> "$GRUB_FILE"
+if grep -q "GRUB_DISABLE_OS_PROBER" "$GRUB_FILE"; then
+    sed -i 's/^GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/' "$GRUB_FILE"
+else
+    echo "GRUB_DISABLE_OS_PROBER=false" >> "$GRUB_FILE"
+fi
+
+if grep -q "GRUB_SAVEDEFAULT" "$GRUB_FILE"; then
+    sed -i 's/^GRUB_SAVEDEFAULT=.*/GRUB_SAVEDEFAULT=true/' "$GRUB_FILE"
+else
+    echo "GRUB_SAVEDEFAULT=true" >> "$GRUB_FILE"
+fi
+
+if grep -q "GRUB_DEFAULT" "$GRUB_FILE"; then
+    sed -i 's/^GRUB_DEFAULT=.*/GRUB_DEFAULT=saved/' "$GRUB_FILE"
+else
+    echo "GRUB_DEFAULT=saved" >> "$GRUB_FILE"
+fi
