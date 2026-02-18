@@ -89,6 +89,8 @@ modules:
         destination: /tmp/rpms
       - source: rootfs
         destination: /
+      - source: scripts-extra
+        destination: /tmp/scripts-extra
 
   # 4. Homebrew
   - type: brew
@@ -149,10 +151,10 @@ modules:
       - setup-root-theme-sync.sh # 6. Root Theme Sync
       - install-epson-escpr.sh # 7. Printer Drivers
 
-  # 9. Post-Install Permissions
+  # 9. Post-Install Permissions & DNF Wrapper
   - type: containerfile
     snippets:
-      - "RUN chmod +x /usr/local/bin/dnf"
+      - "RUN mkdir -p /usr/local/bin && cp /tmp/scripts-extra/dnf-wrapper /usr/local/bin/dnf && chmod +x /usr/local/bin/dnf"
       - "RUN chmod +x /etc/grub.d/40_windows"
 
   # 10. Image Signing (Cosign)

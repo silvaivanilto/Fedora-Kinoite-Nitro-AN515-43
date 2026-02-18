@@ -48,8 +48,9 @@ files/scripts/
 files/rootfs/
 ├── etc/grub.d/40_windows       # Windows GRUB menu entry
 ├── etc/profile.d/dnf-dummy.sh  # Package manager safety aliases
-├── etc/rpm-ostreed.conf        # Automatic update policy
-└── usr/local/bin/dnf           # DNF wrapper (educational)
+└── etc/rpm-ostreed.conf        # Automatic update policy
+files/scripts-extra/
+└── dnf-wrapper                 # DNF wrapper (educational)
 .github/workflows/
 ├── build.yml                   # CI/CD + Image Signing (Cosign)
 └── generate-iso.yml            # Auto-ISO Release generation
