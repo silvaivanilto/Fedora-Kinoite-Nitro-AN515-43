@@ -65,11 +65,14 @@ To rebase an existing Fedora Atomic (Silverblue/Kinoite) installation:
     ```
 
 ### 🪟 Dual Boot (Windows)
-To boot into Windows, use your computer's built-in boot menu:
+To quickly reboot into Windows from Fedora:
 
-1.  Restart your computer.
-2.  Rapidly press **F12** during startup to open the BIOS Boot Menu.
-3.  Select **Windows Boot Manager**.
+1.  Open a terminal.
+2.  Run the command:
+    ```bash
+    boot-windows
+    ```
+    *(This will set Windows as the next boot option and restart immediately)*
 
 ## 🔐 Verification & Maintenance
 *   **Image Signing:** The image is signed with Sigstore/Cosign.

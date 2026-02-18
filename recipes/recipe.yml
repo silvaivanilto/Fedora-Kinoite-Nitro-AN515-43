@@ -34,7 +34,10 @@ modules:
 
       # Bootloader Utilities
       - os-prober
-      
+      - efibootmgr
+      - grep
+      - just
+
       # System Integration & Tools
       - distrobox
       - plasma-discover-rpm-ostree
@@ -104,6 +107,8 @@ modules:
         destination: /tmp/rpms
       - source: etc/rpm-ostreed.conf
         destination: /etc/rpm-ostreed.conf
+      - source: system_files/shared
+        destination: /
 
   # 6. Homebrew
   - type: brew
@@ -166,5 +171,10 @@ modules:
       - setup-root-theme-sync.sh # 6. Root Theme Sync
       - install-epson-escpr.sh # 7. Printer Drivers
 
-  # 11. Image Signing (Cosign)
+  # 11. Bootloader (boot-windows)
+  - type: containerfile
+    snippets:
+      - "RUN chmod +x /usr/bin/boot-windows"
+
+  # 12. Image Signing (Cosign)
   - type: signing
