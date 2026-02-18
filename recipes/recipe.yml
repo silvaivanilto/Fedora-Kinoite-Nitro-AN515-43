@@ -12,7 +12,12 @@ modules:
       copr:
         - "@kdesig/kde-beta"
 
-  # 2. System Base (RPM-OSTree) - Installations
+  # 2. Upgrade KDE Plasma packages from COPR
+  - type: containerfile
+    snippets:
+      - "RUN dnf5 -y upgrade --refresh --repo='copr:copr.fedorainfracloud.org:group_kdesig:kde-beta'"
+
+  # 3. System Base (RPM-OSTree) - Installations
   - type: rpm-ostree
     install:
       # Office Suite
@@ -35,7 +40,7 @@ modules:
       - plasma-discover-rpm-ostree
       - plasma-firewall
 
-  # 3. System Base (RPM-OSTree) - Removals
+  # 4. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
       # Browsers & Runtimes
@@ -92,7 +97,7 @@ modules:
       - libime-data
       - xcb-imdkit
 
-  # 4. Files (Static Configuration)
+  # 5. Files (Static Configuration)
   - type: files
     files:
       - source: rpms
@@ -100,10 +105,10 @@ modules:
       - source: etc/rpm-ostreed.conf
         destination: /etc/rpm-ostreed.conf
 
-  # 5. Homebrew
+  # 6. Homebrew
   - type: brew
 
-  # 6. Fonts
+  # 7. Fonts
   - type: fonts
     fonts:
       nerd-fonts:
@@ -114,7 +119,7 @@ modules:
         - Fira Sans
         - Google Sans Flex
 
-  # 7. Flatpaks (Flathub)
+  # 8. Flatpaks (Flathub)
   - type: default-flatpaks
     configurations:
       - scope: system
@@ -141,7 +146,7 @@ modules:
           name: flathub
         remove-repo: true
 
-  # 8. Service Configuration (Systemd)
+  # 9. Service Configuration (Systemd)
   - type: systemd
     system:
       enabled:
@@ -150,7 +155,7 @@ modules:
         - supergfxd.service
         - switcheroo-control.service
 
-  # 9. Configuration Scripts (Execution Order)
+  # 10. Configuration Scripts (Execution Order)
   - type: script
     scripts:
       - swap-display-manager.sh # 1. Display Manager (SDDM → Plasma Login)
@@ -161,7 +166,6 @@ modules:
       - setup-root-theme-sync.sh # 6. Root Theme Sync
       - configure-grub.sh # 7. Bootloader Configuration
       - install-epson-escpr.sh # 8. Printer Drivers
-      - upgrade-kde-beta.sh # 9. Upgrade KDE Packages (COPR)
 
-  # 10. Image Signing (Cosign)
+  # 11. Image Signing (Cosign)
   - type: signing

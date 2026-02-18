@@ -23,18 +23,6 @@ else
     echo "GRUB_DEFAULT=saved" >> "$GRUB_FILE"
 fi
 
-# Create firstboot service to detect Windows and update GRUB automatically
-# Workaround: grub2-probe returns error on composefs (Fedora Atomic)
-# but grub2-mkconfig still generates a valid config with os-prober entries
-cat <<'EOF' > /etc/systemd/system/grub-os-detect.service
-[Unit]
-Description=Detect other OSes (Windows) and update GRUB configuration
-After=local-fs.target boot-efi.mount
-ConditionPathExists=!/var/lib/.grub-os-detect-done
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash -c 'os-prober && grub2-mkconfig -o /etc/grub2-efi.cfg 2>/dev/null; touch /var/lib/.grub-os-detect-done'
-EOF
-
-systemctl enable grub-os-detect.service
+# Note: grub2-mkconfig is currently broken on Fedora Atomic with Composefs enabled.
+# Automatic dual-boot detection is disabled to prevent errors.
+# Users should use the BIOS/UEFI boot menu to select Windows.

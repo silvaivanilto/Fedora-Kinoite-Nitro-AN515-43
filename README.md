@@ -46,7 +46,6 @@ files/scripts/
 ├── setup-root-theme-sync.sh    # Syncs visual settings to root
 ├── configure-grub.sh           # Atomic-safe GRUB configuration
 ├── install-epson-escpr.sh      # Driver installation with Hash Check
-└── upgrade-kde-beta.sh         # Upgrades KDE packages from COPR
 .github/workflows/
 ├── build.yml                   # CI/CD + Image Signing (Cosign)
 └── generate-iso.yml            # Auto-ISO Release generation
@@ -66,13 +65,13 @@ To rebase an existing Fedora Atomic (Silverblue/Kinoite) installation:
     systemctl reboot
     ```
 
-### 🪟 Dual Boot & GRUB
-The image includes `os-prober` and a firstboot service (`grub-os-detect.service`) that **automatically detects Windows** and updates the GRUB configuration on the first boot.
+### 🪟 Dual Boot (Windows)
+**Important:** Automatic detection of Windows in GRUB is currently **disabled** due to incompatibility with `composefs` on Fedora Atomic 43.
 
-If you need to re-detect (e.g., after installing/removing another OS):
-```bash
-sudo rm /var/lib/.grub-os-detect-done && systemctl reboot
-```
+To boot into Windows:
+1.  Restart your computer.
+2.  Rapidly press **F12** during startup to open the BIOS Boot Menu.
+3.  Select **Windows Boot Manager**.
 
 ## 🔐 Verification & Maintenance
 *   **Image Signing:** The image is signed with Sigstore/Cosign.
