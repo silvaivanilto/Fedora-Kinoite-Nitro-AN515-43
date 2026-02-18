@@ -175,6 +175,7 @@ modules:
   - type: containerfile
     snippets:
       - "RUN chmod +x /usr/bin/boot-windows"
+      - "RUN chmod +x /usr/local/bin/dnf"
 
   # 12. Image Signing (Cosign)
   - type: signing
