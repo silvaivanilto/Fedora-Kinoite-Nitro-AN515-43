@@ -164,8 +164,14 @@ modules:
       - install-oh-my-bash.sh # 4. Terminal Setup (Oh My Bash)
       - configure-nvidia.sh # 5. GPU Power Management
       - setup-root-theme-sync.sh # 6. Root Theme Sync
-      - configure-grub.sh # 7. Bootloader Configuration
-      - install-epson-escpr.sh # 8. Printer Drivers
+      - install-epson-escpr.sh # 7. Printer Drivers
+
+  # 9. Bootloader Configuration (GRUB)
+  - type: containerfile
+    snippets:
+      - "RUN sed -i 's/^GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub || echo 'GRUB_DISABLE_OS_PROBER=false' >> /etc/default/grub"
+      - "RUN sed -i 's/^GRUB_SAVEDEFAULT=.*/GRUB_SAVEDEFAULT=true/' /etc/default/grub || echo 'GRUB_SAVEDEFAULT=true' >> /etc/default/grub"
+      - "RUN sed -i 's/^GRUB_DEFAULT=.*/GRUB_DEFAULT=saved/' /etc/default/grub || echo 'GRUB_DEFAULT=saved' >> /etc/default/grub"
 
   # 11. Image Signing (Cosign)
   - type: signing

@@ -44,7 +44,6 @@ files/scripts/
 ├── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
 ├── configure-nvidia.sh         # Dynamic Power Management setup
 ├── setup-root-theme-sync.sh    # Syncs visual settings to root
-├── configure-grub.sh           # Atomic-safe GRUB configuration
 ├── install-epson-escpr.sh      # Driver installation with Hash Check
 .github/workflows/
 ├── build.yml                   # CI/CD + Image Signing (Cosign)
