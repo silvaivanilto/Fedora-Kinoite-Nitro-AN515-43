@@ -4,7 +4,7 @@ exec tail -n +3 $0
 # menu entries you want to add after this comment.  Be careful not to change
 # the 'exec tail' line above.
 
-menuentry 'Windows 11' --class windows --class os {
+menuentry 'Windows' --class windows --class os {
     insmod part_gpt
     insmod fat
     insmod chain

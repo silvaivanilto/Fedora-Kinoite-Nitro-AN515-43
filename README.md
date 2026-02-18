@@ -46,7 +46,7 @@ files/scripts/
 ├── setup-root-theme-sync.sh    # Syncs visual settings to root
 └── install-epson-escpr.sh      # Driver installation with Hash Check
 files/rootfs/
-├── etc/grub.d/40_custom        # Windows GRUB menu entry
+├── etc/grub.d/40_windows       # Windows GRUB menu entry
 ├── etc/profile.d/dnf-dummy.sh  # Package manager safety aliases
 ├── etc/rpm-ostreed.conf        # Automatic update policy
 └── usr/local/bin/dnf           # DNF wrapper (educational)
@@ -74,7 +74,7 @@ To rebase an existing Fedora Atomic (Silverblue/Kinoite) installation:
 To boot into Windows:
 
 1.  **Restart** your computer.
-2.  Select the **"Windows 11"** entry in the GRUB boot menu.
+2.  Select the **"Windows"** entry in the GRUB boot menu.
     *(This entry is automatically configured to find your Windows partition)*
 
 ## 🔐 Verification & Maintenance

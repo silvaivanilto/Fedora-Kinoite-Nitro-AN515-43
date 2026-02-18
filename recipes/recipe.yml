@@ -153,7 +153,7 @@ modules:
   - type: containerfile
     snippets:
       - "RUN chmod +x /usr/local/bin/dnf"
-      - "RUN chmod +x /etc/grub.d/40_custom"
+      - "RUN chmod +x /etc/grub.d/40_windows"
 
   # 10. Image Signing (Cosign)
   - type: signing
