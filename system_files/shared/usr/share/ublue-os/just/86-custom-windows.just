@@ -1,9 +1,9 @@
 # vim: set ft=make :
 
-# Configura o sistema para permitir a troca de boot para o Windows
+# Configure system to allow booting into Windows
 [group("system")]
 setup-dual-boot:
-    echo "Configurando efibootmgr para uso sem senha..."
-    # Apenas garante que o arquivo de sudoers existe (o build já o coloca lá, mas isto garante a aplicação)
+    echo "Configuring efibootmgr for passwordless execution..."
+    # Ensure usage of correct permissions (build places it, this enforces it)
     sudo chmod 440 /etc/sudoers.d/efibootmgr-config
-    echo "Pronto! Agora você pode usar o comando 'boot-windows' no terminal."
+    echo "Done! You can now use the 'boot-windows' command in the terminal."
