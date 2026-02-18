@@ -4,11 +4,12 @@ exec tail -n +3 $0
 # menu entries you want to add after this comment.  Be careful not to change
 # the 'exec tail' line above.
 
-menuentry 'Windows' --class windows --class os {
+menuentry 'Windows' --class windows --class os --id windows {
     insmod part_gpt
     insmod fat
     insmod chain
     insmod ntfs
+    insmod search_fs_file
     search --no-floppy --set=root --file /EFI/Microsoft/Boot/bootmgfw.efi
     chainloader /EFI/Microsoft/Boot/bootmgfw.efi
 }
