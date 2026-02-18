@@ -10,7 +10,7 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 *   **Base:** `ghcr.io/ublue-os/kinoite-nvidia:43` (Fedora Atomic 43).
 *   **Nvidia Drivers:** Proprietary drivers pre-installed with **Dynamic Power Management** enabled (`NVreg_DynamicPowerManagement=0x02`).
 *   **supergfxctl:** Hybrid GPU management service enabled for seamless GPU switching.
-*   **KDE Bleeding Edge:** Plasma packages updated from the `@kdesig/kde-beta` COPR at every build.
+
 *   **Native Experience:** Uses the native Fedora 43 Plasma Login Manager and system settings.
 *   **Discover:** Full **rpm-ostree** support enabled within Discover for GUI system management.
 
@@ -44,7 +44,12 @@ files/scripts/
 ├── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
 ├── configure-nvidia.sh         # Dynamic Power Management setup
 ├── setup-root-theme-sync.sh    # Syncs visual settings to root
-├── install-epson-escpr.sh      # Driver installation with Hash Check
+└── install-epson-escpr.sh      # Driver installation with Hash Check
+files/rootfs/
+├── etc/grub.d/40_custom        # Windows GRUB menu entry
+├── etc/profile.d/dnf-dummy.sh  # Package manager safety aliases
+├── etc/rpm-ostreed.conf        # Automatic update policy
+└── usr/local/bin/dnf           # DNF wrapper (educational)
 .github/workflows/
 ├── build.yml                   # CI/CD + Image Signing (Cosign)
 └── generate-iso.yml            # Auto-ISO Release generation
@@ -64,7 +69,7 @@ To rebase an existing Fedora Atomic (Silverblue/Kinoite) installation:
     systemctl reboot
     ```
 
-### 🪟 Dual Boot (Windows)
+
 ### 🪟 Dual Boot (Windows)
 To boot into Windows:
 

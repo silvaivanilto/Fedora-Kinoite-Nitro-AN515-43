@@ -6,11 +6,7 @@ base-image: ghcr.io/ublue-os/kinoite-nvidia
 image-version: 43
 
 modules:
-  # 1. Repository Configuration (COPR)
-  - type: dnf
-    repos:
-
-  # 3. System Base (RPM-OSTree) - Installations
+  # 1. System Base (RPM-OSTree) - Installations
   - type: rpm-ostree
     install:
       # Office Suite
@@ -25,6 +21,7 @@ modules:
       # Power Management
       - switcheroo-control
 
+      # Bootloader
       - os-prober
 
       # System Integration & Tools
@@ -32,7 +29,7 @@ modules:
       - plasma-discover-rpm-ostree
       - plasma-firewall
 
-  # 4. System Base (RPM-OSTree) - Removals
+  # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
       # Browsers & Runtimes
@@ -89,7 +86,7 @@ modules:
       - libime-data
       - xcb-imdkit
 
-  # 5. Files (Static Configuration)
+  # 3. Files (Static Configuration)
   - type: files
     files:
       - source: rpms
@@ -97,10 +94,10 @@ modules:
       - source: rootfs
         destination: /
 
-  # 6. Homebrew
+  # 4. Homebrew
   - type: brew
 
-  # 7. Fonts
+  # 5. Fonts
   - type: fonts
     fonts:
       nerd-fonts:
@@ -111,7 +108,7 @@ modules:
         - Fira Sans
         - Google Sans Flex
 
-  # 8. Flatpaks (Flathub)
+  # 6. Flatpaks (Flathub)
   - type: default-flatpaks
     configurations:
       - scope: system
@@ -138,7 +135,7 @@ modules:
           name: flathub
         remove-repo: true
 
-  # 9. Service Configuration (Systemd)
+  # 7. Service Configuration (Systemd)
   - type: systemd
     system:
       enabled:
@@ -147,7 +144,7 @@ modules:
         - supergfxd.service
         - switcheroo-control.service
 
-  # 10. Configuration Scripts (Execution Order)
+  # 8. Configuration Scripts (Execution Order)
   - type: script
     scripts:
       - swap-display-manager.sh # 1. Display Manager (SDDM → Plasma Login)
@@ -158,10 +155,11 @@ modules:
       - setup-root-theme-sync.sh # 6. Root Theme Sync
       - install-epson-escpr.sh # 7. Printer Drivers
 
-  # 11. Bootloader (boot-windows)
+  # 9. Post-Install Permissions
+  - type: containerfile
     snippets:
       - "RUN chmod +x /usr/local/bin/dnf"
       - "RUN chmod +x /etc/grub.d/40_custom"
 
-  # 12. Image Signing (Cosign)
+  # 10. Image Signing (Cosign)
   - type: signing
