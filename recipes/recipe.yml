@@ -94,9 +94,7 @@ modules:
     files:
       - source: rpms
         destination: /tmp/rpms
-      - source: etc/rpm-ostreed.conf
-        destination: /etc/rpm-ostreed.conf
-      - source: system_files/shared
+      - source: rootfs
         destination: /
 
   # 6. Homebrew
