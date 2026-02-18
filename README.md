@@ -83,7 +83,6 @@ You have two ways to boot into Windows:
 - **Script:** `/usr/bin/boot-windows` (executable via `chmod +x` in post-install).
 - **Logic:** Uses `efibootmgr` to find the Windows boot entry index and sets it for the next boot.
 - **Permissions:** Configured via `/etc/sudoers.d/efibootmgr-config` to allow `wheel` group execution without password.
-- **Automation:** Managed via `just setup-dual-boot` (recipe in `/usr/share/ublue-os/just/86-custom-windows.just`).
 
 ## 🔐 Verification & Maintenance
 *   **Image Signing:** The image is signed with Sigstore/Cosign.

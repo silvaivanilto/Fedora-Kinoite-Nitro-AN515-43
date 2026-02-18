@@ -9,13 +9,6 @@ modules:
   # 1. Repository Configuration (COPR)
   - type: dnf
     repos:
-      copr:
-        - "@kdesig/kde-beta"
-
-  # 2. Upgrade KDE Plasma packages from COPR
-  - type: containerfile
-    snippets:
-      - "RUN dnf5 -y upgrade --refresh --repo='copr:copr.fedorainfracloud.org:group_kdesig:kde-beta'"
 
   # 3. System Base (RPM-OSTree) - Installations
   - type: rpm-ostree
@@ -36,7 +29,6 @@ modules:
       - os-prober
       - efibootmgr
       - grep
-      - just
 
       # System Integration & Tools
       - distrobox
