@@ -64,18 +64,12 @@ To rebase an existing Fedora Atomic (Silverblue/Kinoite) installation:
     systemctl reboot
     ```
 
-### 🪟 Dual Boot (rEFInd)
-The image now includes **rEFInd**, a modern and reliable boot manager that automatically detects Windows and Linux without relying on fragile GRUB configurations.
+### 🪟 Dual Boot (Windows)
+To boot into Windows, use your computer's built-in boot menu:
 
-**First-Time Setup:**
-After rebasing to this image and rebooting, you need to install rEFInd to your EFI partition:
-
-1.  Open a terminal.
-2.  Run the installation command:
-    ```bash
-    sudo refind-install
-    ```
-3.  Reboot. You should now see the rEFInd graphical menu with options for Fedora and Windows.
+1.  Restart your computer.
+2.  Rapidly press **F12** during startup to open the BIOS Boot Menu.
+3.  Select **Windows Boot Manager**.
 
 ## 🔐 Verification & Maintenance
 *   **Image Signing:** The image is signed with Sigstore/Cosign.

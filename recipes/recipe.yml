@@ -32,8 +32,8 @@ modules:
       # Power Management
       - switcheroo-control
 
-      # Bootloader (Dual-Boot)
-      # - refind (Moved to containerfile snippet to enable updates-testing)
+      # Bootloader Utilities
+      - os-prober
       
       # System Integration & Tools
       - distrobox
@@ -166,11 +166,5 @@ modules:
       - setup-root-theme-sync.sh # 6. Root Theme Sync
       - install-epson-escpr.sh # 7. Printer Drivers
 
-  # 11. Bootloader (rEFInd)
-  # Package is in Fedora 43 but may be in updates-testing
-  - type: containerfile
-    snippets:
-      - "RUN rpm-ostree install --enablerepo=updates-testing refind"
-
-  # 12. Image Signing (Cosign)
+  # 11. Image Signing (Cosign)
   - type: signing
