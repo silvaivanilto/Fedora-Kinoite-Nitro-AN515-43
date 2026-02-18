@@ -25,10 +25,7 @@ modules:
       # Power Management
       - switcheroo-control
 
-      # Bootloader Utilities
       - os-prober
-      - efibootmgr
-      - grep
 
       # System Integration & Tools
       - distrobox
@@ -164,9 +161,7 @@ modules:
       - install-epson-escpr.sh # 7. Printer Drivers
 
   # 11. Bootloader (boot-windows)
-  - type: containerfile
     snippets:
-      - "RUN chmod +x /usr/bin/boot-windows"
       - "RUN chmod +x /usr/local/bin/dnf"
       - "RUN chmod +x /etc/grub.d/40_custom"
 

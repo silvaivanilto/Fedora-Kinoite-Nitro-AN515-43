@@ -65,24 +65,12 @@ To rebase an existing Fedora Atomic (Silverblue/Kinoite) installation:
     ```
 
 ### 🪟 Dual Boot (Windows)
-You have two ways to boot into Windows:
+### 🪟 Dual Boot (Windows)
+To boot into Windows:
 
-1.  **GRUB Menu:** Select the "Windows 11" entry in the boot menu (automatically enhanced to find your Windows partition).
-2.  **Terminal Command:** Run `boot-windows` to restart directly into it.
-
-**Manual Method (CLI):**
-
-1.  Open a terminal.
-2.  Run the command:
-    ```bash
-    boot-windows
-    ```
-    *(This sets the EFI `BootNext` variable to Windows and restarts immediately)*
-
-**Implementation Details:**
-- **Script:** `/usr/bin/boot-windows` (executable via `chmod +x` in post-install).
-- **Logic:** Uses `efibootmgr` to find the Windows boot entry index and sets it for the next boot.
-- **Permissions:** Configured via `/etc/sudoers.d/efibootmgr-config` to allow `wheel` group execution without password.
+1.  **Restart** your computer.
+2.  Select the **"Windows 11"** entry in the GRUB boot menu.
+    *(This entry is automatically configured to find your Windows partition)*
 
 ## 🔐 Verification & Maintenance
 *   **Image Signing:** The image is signed with Sigstore/Cosign.
