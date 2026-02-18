@@ -11,6 +11,7 @@ modules:
     repos:
       copr:
         - "@kdesig/kde-beta"
+        - "eeickmeyer/refind"
 
   # 2. Upgrade KDE Plasma packages from COPR
   - type: containerfile
