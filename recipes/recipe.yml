@@ -176,6 +176,7 @@ modules:
     snippets:
       - "RUN chmod +x /usr/bin/boot-windows"
       - "RUN chmod +x /usr/local/bin/dnf"
+      - "RUN chmod +x /etc/grub.d/40_custom"
 
   # 12. Image Signing (Cosign)
   - type: signing
