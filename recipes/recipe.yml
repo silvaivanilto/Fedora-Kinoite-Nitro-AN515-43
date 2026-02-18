@@ -21,6 +21,7 @@ modules:
       - libreoffice-pdfimport
       - libreoffice-writer
       - autocorr-pt
+      - liberation-fonts
 
       # Power Management
       - switcheroo-control
