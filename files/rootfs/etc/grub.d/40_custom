@@ -7,6 +7,8 @@ exec tail -n +3 $0
 menuentry 'Windows 11' --class windows --class os {
     insmod part_gpt
     insmod fat
+    insmod chain
+    insmod ntfs
     search --no-floppy --set=root --file /EFI/Microsoft/Boot/bootmgfw.efi
     chainloader /EFI/Microsoft/Boot/bootmgfw.efi
 }
