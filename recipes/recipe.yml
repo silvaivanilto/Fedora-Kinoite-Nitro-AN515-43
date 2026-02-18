@@ -25,7 +25,6 @@ modules:
       - os-prober
 
       # System Integration & Tools
-      - distrobox
       - plasma-discover-rpm-ostree
       - plasma-firewall
 
@@ -36,12 +35,10 @@ modules:
       - firefox
       - firefox-langpacks
 
-      # Text Editor (Kate/KWrite → Flatpak)
+      # Text Editor (Kate → Flatpak, KWrite stays)
       - kate
-      - kate-libs
       - kate-plugins
       - kate-krunner-plugin
-      - kwrite
 
       # System Utilities & Bloat
       - firewall-config
@@ -49,7 +46,6 @@ modules:
       - kdebugsettings
       - nvtop
       - plasma-drkonqi
-      - toolbox
 
       # Core & Configuration
       - fcitx5
@@ -118,12 +114,10 @@ modules:
           name: flathub
           title: Flathub
         install:
-          - io.github.DenysMb.Kontainer
           - org.kde.elisa
           - org.kde.haruna
           - org.kde.kalk
           - org.kde.koko
-          - org.kde.kwrite
           - org.kde.marknote
           - org.kde.merkuro
           - org.kde.okular

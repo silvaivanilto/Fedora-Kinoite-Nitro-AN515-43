@@ -20,7 +20,7 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 ### 🛠️ Developer & System Tools
 *   **Default Browser:** **Google Chrome** (RPM) pre-installed and set as default.
 *   **Terminal:** **Oh My Bash** pre-installed in `/etc/skel` with the **Powerline** theme and productivity plugins (`git`, `bash-completion`).
-*   **Container Management:** **Distrobox** (replaces Toolbox).
+*   **Container Management:** **Toolbox** for containerized development.
 *   **Homebrew:** Linuxbrew manager pre-installed and configured with daily auto-update/upgrade timers.
 *   **Theme Sync:** Custom systemd service to sync root user theme with the primary user (Wheel group).
 
@@ -28,8 +28,8 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 *   **Epson Drivers:** `epson-inkjet-printer-escpr` installed with SHA256 integrity verification for reliability.
 
 ### 📦 Clean & Lean System
-*   **Removed Bloat:** Firefox, SDDM, Kate, fcitx5, and Toolbox have been removed.
-*   **KWrite Flatpak:** KWrite installed via Flathub for easier updates.
+*   **Removed Bloat:** Firefox, SDDM, Kate, fcitx5 have been removed.
+*   **KWrite:** Kept as native RPM text editor.
 *   **Flatpaks:** Flathub (system-wide) configured with a curated selection of KDE apps.
 
 ## 📁 Project Structure
