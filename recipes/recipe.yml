@@ -43,6 +43,7 @@ modules:
       # Text Editor (Kate → KWrite) - ublue kinoite
       - kate
       - kate-plugins
+      - kate-krunner-plugin
 
       # Apple - ublue all
       - libimobiledevice-utils
