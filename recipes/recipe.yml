@@ -42,6 +42,7 @@ modules:
 
       # Text Editor (Kate → KWrite) - ublue kinoite
       - kate
+      - kate-plugins
 
       # Apple - ublue all
       - libimobiledevice-utils
@@ -82,8 +83,10 @@ modules:
       # Fcitx5 (Input Method) - ublue kinoite
       - fcitx5-chewing
       - fcitx5-chinese-addons
+      - fcitx5-chinese-addons-data
       - fcitx5-configtool
       - fcitx5-gtk
+      - fcitx5-gtk4
       - fcitx5-hangul
       - fcitx5-libthai
       - fcitx5-m17n
