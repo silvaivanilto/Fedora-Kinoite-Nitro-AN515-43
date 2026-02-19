@@ -83,10 +83,7 @@ modules:
       - icoutils
       - kdebugsettings
       - plasma-drkonqi
-      - squashfs-tools
-      - symlinks
       - toolbox
-      - wireguard-tools
 
       # Fonts (Asian/CJK - not needed for pt-BR)
       - google-noto-sans-balinese-fonts
