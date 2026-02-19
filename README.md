@@ -22,7 +22,6 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 *   **Terminal:** **Oh My Bash** pre-installed in `/etc/skel` with the **Powerline** theme and productivity plugins (`git`, `bash-completion`).
 *   **Container Management:** **Distrobox** (pre-installed via ublue base).
 *   **Homebrew:** Linuxbrew manager pre-installed and configured with daily auto-update/upgrade timers.
-*   **Theme Sync:** Custom systemd service to sync root user theme with the primary user (Wheel group).
 
 ### 🖨️ Printing
 *   **Epson Drivers:** `epson-inkjet-printer-escpr` installed with SHA256 integrity verification for reliability.
@@ -42,7 +41,6 @@ files/scripts/
 ├── install-chrome.sh           # Chrome RPM & default browser config
 ├── install-antigravity.sh      # Antigravity Auto-Updater
 ├── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
-├── setup-root-theme-sync.sh    # Syncs visual settings to root
 └── install-epson-escpr.sh      # Driver installation with Hash Check
 files/rootfs/
 ├── etc/grub.d/40_windows       # Windows GRUB menu entry
