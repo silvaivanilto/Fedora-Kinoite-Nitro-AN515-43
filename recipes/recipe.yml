@@ -62,7 +62,7 @@ modules:
       - tcpdump
       - tmux
       - traceroute
-      - vim
+      - vim-enhanced
 
       # YubiKey - ublue all
       - pam-u2f
