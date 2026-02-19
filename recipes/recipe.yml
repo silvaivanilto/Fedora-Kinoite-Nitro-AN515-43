@@ -88,6 +88,7 @@ modules:
       - icoutils
       - kdebugsettings
       - plasma-drkonqi
+      - toolbox
 
       # Fcitx5 (Input Method)
       - fcitx5-chewing

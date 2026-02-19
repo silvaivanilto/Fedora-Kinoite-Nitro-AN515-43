@@ -20,7 +20,7 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 ### 🛠️ Developer & System Tools
 *   **Default Browser:** **Google Chrome** (RPM) pre-installed and set as default.
 *   **Terminal:** **Oh My Bash** pre-installed in `/etc/skel` with the **Powerline** theme and productivity plugins (`git`, `bash-completion`).
-*   **Container Management:** **Toolbox** for containerized development.
+*   **Container Management:** **Distrobox** (pre-installed via ublue base).
 *   **Homebrew:** Linuxbrew manager pre-installed and configured with daily auto-update/upgrade timers.
 *   **Theme Sync:** Custom systemd service to sync root user theme with the primary user (Wheel group).
 
