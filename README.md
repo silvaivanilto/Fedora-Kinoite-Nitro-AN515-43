@@ -42,7 +42,6 @@ files/scripts/
 ├── install-chrome.sh           # Chrome RPM & default browser config
 ├── install-antigravity.sh      # Antigravity Auto-Updater
 ├── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
-├── configure-nvidia.sh         # Dynamic Power Management setup
 ├── setup-root-theme-sync.sh    # Syncs visual settings to root
 └── install-epson-escpr.sh      # Driver installation with Hash Check
 files/rootfs/
