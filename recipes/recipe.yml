@@ -61,7 +61,6 @@ modules:
       - powerstat
 
       # CLI Utilities & Network
-      - fzf
       - tcpdump
       - tmux
       - traceroute
