@@ -48,8 +48,11 @@ modules:
       - htop
       - icoutils
       - kdebugsettings
-      - ksshaskpass
       - nvtop
+      - powerstat
+      - smartmontools
+      - nvme-cli
+      - lshw
       - plasma-drkonqi
 
       # Mobile/USB
