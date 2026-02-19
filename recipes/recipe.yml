@@ -36,56 +36,42 @@ modules:
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
-      # Browsers & Runtimes
+      # Browsers
       - firefox
       - firefox-langpacks
 
-      # Text Editor (Kate → Flatpak, KWrite stays)
+      # Text Editor (Kate → KWrite)
       - kate
-      - kate-plugins
-      - kate-krunner-plugin
 
-      # System Utilities & Bloat
+      # System Utilities
       - firewall-config
       - htop
+      - icoutils
       - kdebugsettings
+      - ksshaskpass
       - nvtop
       - plasma-drkonqi
 
-      # Core & Configuration
-      - fcitx5
-      - fcitx5-configtool
-      - fcitx5-data
-      - fcitx5-libs
-      - fcitx5-lua
-      - fcitx5-m17n
-      - kcm-fcitx5
+      # Mobile/USB
+      - libimobiledevice-utils
+      - usbmuxd
 
-      # UI Modules
-      - fcitx5-gtk
-      - fcitx5-gtk3
-      - fcitx5-gtk4
-      - fcitx5-qt
-      - fcitx5-qt-libfcitx5qt6widgets
-      - fcitx5-qt-libfcitx5qtdbus
-      - fcitx5-qt-qt6gui
-      - fcitx5-qt5
-      - fcitx5-qt6
+      # Intel (not needed on Nvidia)
+      - intel-vaapi-driver
 
-      # Fcitx5 Language Engines
+      # Fcitx5 (Input Method)
       - fcitx5-chewing
       - fcitx5-chinese-addons
-      - fcitx5-chinese-addons-data
+      - fcitx5-configtool
+      - fcitx5-gtk
       - fcitx5-hangul
       - fcitx5-libthai
+      - fcitx5-m17n
       - fcitx5-mozc
+      - fcitx5-qt
       - fcitx5-sayura
       - fcitx5-unikey
-
-      # Exclusive Fcitx5 Dependencies
-      - libime
-      - libime-data
-      - xcb-imdkit
+      - kcm-fcitx5
 
   # 3. Files (Static Configuration)
   - type: files
