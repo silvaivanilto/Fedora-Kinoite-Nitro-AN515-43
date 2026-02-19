@@ -36,31 +36,58 @@ modules:
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
-      # Browsers
+      # Firefox
       - firefox
       - firefox-langpacks
 
       # Text Editor (Kate → KWrite)
       - kate
 
-      # System Utilities
-      - firewall-config
-      - htop
-      - icoutils
-      - kdebugsettings
-      - nvtop
-      - powerstat
-      - smartmontools
-      - nvme-cli
-      - lshw
-      - plasma-drkonqi
-
-      # Mobile/USB
+      # Apple
       - libimobiledevice-utils
       - usbmuxd
 
-      # Intel (not needed on Nvidia)
+      # Intel
       - intel-vaapi-driver
+
+      # Xorg
+      - xhost
+      - xorg-x11-xauth
+
+      # Monitors & Diagnostics CLI
+      - htop
+      - lshw
+      - libva-utils
+      - nvme-cli
+      - nvtop
+      - powerstat
+      - smartmontools
+
+      # CLI Utilities & Network
+      - fzf
+      - net-tools
+      - tcpdump
+      - tmux
+      - traceroute
+      - vim
+
+      # YubiKey
+      - pam-u2f
+      - pam_yubico
+      - pamu2fcfg
+      - yubikey-manager
+
+      # Gaming & RGB
+      - libratbag-ratbagd
+      - openrgb-udev-rules
+      - oversteer-udev
+      - solaar-udev
+
+      # System Utilities
+      - firewall-config
+      - icoutils
+      - kdebugsettings
+      - plasma-drkonqi
 
       # Fcitx5 (Input Method)
       - fcitx5-chewing
