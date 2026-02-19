@@ -78,7 +78,10 @@ modules:
       - solaar-udev
 
       # System Utilities
+      - firewall-config
       - icoutils
+      - kdebugsettings
+      - plasma-drkonqi
       - toolbox
 
       # Fcitx5 (Input Method) - ublue kinoite
