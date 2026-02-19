@@ -154,9 +154,8 @@ modules:
       - install-chrome.sh # 2. Browser (Chrome RPM)
       - install-antigravity.sh # 3. Antigravity Auto-Updater
       - install-oh-my-bash.sh # 4. Terminal Setup (Oh My Bash)
-      - configure-nvidia.sh # 5. GPU Power Management
-      - setup-root-theme-sync.sh # 6. Root Theme Sync
-      - install-epson-escpr.sh # 7. Printer Drivers
+      - setup-root-theme-sync.sh # 5. Root Theme Sync
+      - install-epson-escpr.sh # 6. Printer Drivers
 
   # 9. Post-Install Permissions & DNF Wrapper
   - type: containerfile
