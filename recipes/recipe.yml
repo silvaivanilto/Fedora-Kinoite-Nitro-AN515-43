@@ -83,7 +83,16 @@ modules:
       - icoutils
       - kdebugsettings
       - plasma-drkonqi
+      - squashfs-tools
+      - symlinks
       - toolbox
+      - wireguard-tools
+
+      # Fonts (Asian/CJK - not needed for pt-BR)
+      - google-noto-sans-balinese-fonts
+      - google-noto-sans-cjk-fonts
+      - google-noto-sans-javanese-fonts
+      - google-noto-sans-sundanese-fonts
 
       # Fcitx5 (Input Method) - Complete removal
       - fcitx5
