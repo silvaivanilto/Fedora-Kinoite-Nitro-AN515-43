@@ -3,7 +3,7 @@ set -ouex pipefail
 
 # Config
 THEME="powerline"
-PLUGINS="git bash-completion extract fzf history-substring-search"
+PLUGINS="git bash-completion extract fzf history-substring-search sudo"
 
 # Install OMB to skel
 rm -rf /etc/skel/.oh-my-bash

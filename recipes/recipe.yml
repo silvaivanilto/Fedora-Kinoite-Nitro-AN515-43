@@ -26,8 +26,8 @@ modules:
       # Power Management
       - switcheroo-control
 
-      # Bootloader
-      - os-prober
+      # Multimedia
+      - ffmpegthumbnailer
 
       # System Integration & Tools
       - plasma-discover-rpm-ostree

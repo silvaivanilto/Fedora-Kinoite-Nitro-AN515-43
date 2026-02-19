@@ -1,4 +1,4 @@
-# Fedora Kinoite Nitro (Bleeding Edge)
+# Fedora Kinoite Nitro
 
 Custom **Fedora Kinoite** (Nvidia) image optimized for the Acer Nitro 5 (AN515-43). Designed for stability, battery longevity, and peak performance.
 
