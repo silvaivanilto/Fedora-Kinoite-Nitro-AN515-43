@@ -42,6 +42,8 @@ modules:
 
       # Text Editor (Kate → KWrite)
       - kate
+      - kate-plugins
+      - kate-krunner-plugin
 
       # Apple
       - libimobiledevice-utils
@@ -50,10 +52,6 @@ modules:
       # Intel
       - intel-vaapi-driver
 
-      # Xorg
-      - xhost
-      - xorg-x11-xauth
-
       # Monitors & Diagnostics CLI
       - htop
       - lshw
@@ -61,11 +59,9 @@ modules:
       - nvme-cli
       - nvtop
       - powerstat
-      - smartmontools
 
       # CLI Utilities & Network
       - fzf
-      - net-tools
       - tcpdump
       - tmux
       - traceroute
@@ -90,19 +86,34 @@ modules:
       - plasma-drkonqi
       - toolbox
 
-      # Fcitx5 (Input Method)
+      # Fcitx5 (Input Method) - Complete removal
+      - fcitx5
       - fcitx5-chewing
       - fcitx5-chinese-addons
+      - fcitx5-chinese-addons-data
       - fcitx5-configtool
+      - fcitx5-data
       - fcitx5-gtk
+      - fcitx5-gtk3
+      - fcitx5-gtk4
       - fcitx5-hangul
+      - fcitx5-libs
       - fcitx5-libthai
+      - fcitx5-lua
       - fcitx5-m17n
       - fcitx5-mozc
       - fcitx5-qt
+      - fcitx5-qt-libfcitx5qt6widgets
+      - fcitx5-qt-libfcitx5qtdbus
+      - fcitx5-qt-qt6gui
+      - fcitx5-qt5
+      - fcitx5-qt6
       - fcitx5-sayura
       - fcitx5-unikey
       - kcm-fcitx5
+      - libime
+      - libime-data
+      - xcb-imdkit
 
   # 3. Files (Static Configuration)
   - type: files
