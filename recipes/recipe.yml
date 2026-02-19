@@ -52,7 +52,6 @@ modules:
 
       # Monitors & Diagnostics CLI - ublue all
       - htop
-      - lshw
       - libva-utils
       - nvme-cli
       - nvtop
@@ -78,8 +77,6 @@ modules:
 
       # System Utilities
       - icoutils
-      - supergfxctl
-      - supergfxctl-plasmoid
       - toolbox
 
       # Fcitx5 (Input Method) - ublue kinoite
@@ -153,6 +150,7 @@ modules:
       enabled:
         - nvidia-powerd.service
         - rpm-ostreed-automatic.timer
+        - supergfxd.service
         - switcheroo-control.service
 
   # 8. Configuration Scripts (Execution Order)

@@ -10,6 +10,7 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 
 * **Base:** `ghcr.io/ublue-os/kinoite-nvidia:43` (Fedora Atomic 43).
 * **Nvidia Drivers:** Proprietary drivers pre-installed with **Dynamic Power Management** enabled (`NVreg_DynamicPowerManagement=0x02`).
+* **supergfxctl:** Hybrid GPU management service enabled for seamless GPU switching.
 
 * **Native Experience:** Uses the native Fedora 43 Plasma Login Manager and system settings.
 * **Discover:** Full **rpm-ostree** support enabled within Discover for GUI system management.
