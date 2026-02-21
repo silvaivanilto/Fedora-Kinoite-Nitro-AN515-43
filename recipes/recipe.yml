@@ -39,11 +39,18 @@ modules:
   - type: rpm-ostree
     remove:
       # Apple & iOS Devices
+      - libimobiledevice
+      - libimobiledevice-glue
       - libimobiledevice-utils
       - usbmuxd
 
       # CLI & Network Utilities
+      - antiword
+      - catdoc
       - htop
+      - lrzsz
+      - mpage
+      - mtr
       - tcpdump
       - tmux
       - traceroute
@@ -69,7 +76,13 @@ modules:
       - solaar-udev
 
       # Hardware Drivers (Intel)
+      - intel-audio-firmware
+      - intel-gpu-firmware
+      - intel-mediasdk
       - intel-vaapi-driver
+      - intel-vpl-gpu-rt
+      - intel-vsc-firmware
+      - libva-intel-media-driver
 
       # Input Method (Fcitx5 / Asian Languages)
       # Dependências Exclusivas
@@ -117,6 +130,19 @@ modules:
       - plasma-drkonqi
       - supergfxctl-plasmoid
       - toolbox
+
+      # Virtualization & Guest Agents
+      - hyperv-daemons
+      - hyperv-daemons-license
+      - hypervfcopyd
+      - hypervkvpd
+      - hypervvssd
+      - open-vm-tools
+      - open-vm-tools-desktop
+      - qemu-guest-agent
+      - spice-vdagent
+      - spice-webdavd
+      - virtualbox-guest-additions
 
       # YubiKey & Authentication
       - pam-u2f
@@ -166,6 +192,7 @@ modules:
           name: flathub
           title: Flathub
         install:
+          - io.github.DenysMb.Kontainer
           - org.kde.elisa
           - org.kde.haruna
           - org.kde.kalk
