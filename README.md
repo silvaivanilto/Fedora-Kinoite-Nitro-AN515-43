@@ -9,7 +9,7 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 ### 🎮 Graphics & Performance
 
 * **Base:** `ghcr.io/ublue-os/kinoite-nvidia:43` (Fedora Atomic 43).
-* **Nvidia Drivers:** Proprietary drivers pre-installed with **Dynamic Power Management** enabled (`NVreg_DynamicPowerManagement=0x02`).
+* **Nvidia Drivers:** Proprietary drivers pre-installed.
 * **supergfxctl:** Hybrid GPU management service enabled for seamless GPU switching.
 
 * **Native Experience:** Uses the native Fedora 43 Plasma Login Manager and system settings.
@@ -25,6 +25,8 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 * **Terminal:** **Oh My Bash** pre-installed in `/etc/skel` with the **Powerline** theme and productivity plugins (`git`, `bash-completion`).
 * **Container Management:** **Distrobox** (pre-installed via ublue base).
 * **Homebrew:** Linuxbrew manager pre-installed and configured with daily auto-update/upgrade timers.
+* **IDEs & Editor Setup:** Pre-configured settings for the Antigravity Code/VSCodium extension marketplace for all new users.
+* **Typography:** Enriched with a comprehensive set of dev-friendly Monospace and Sans fonts (Cascadia Code, Fira, JetBrains Mono, Roboto, NerdFonts, etc.) configured natively via BlueBuild.
 
 ### 🖨️ Printing
 
@@ -32,7 +34,9 @@ This image is built on `ghcr.io/ublue-os/kinoite-nvidia:43` and heavily customiz
 
 ### 📦 Clean & Lean System
 
-* **Removed Bloat:** Firefox, SDDM, Kate, fcitx5 have been removed.
+* **Removed Bloat:** Firefox, SDDM, Kate, and their background dependencies.
+* **Stripped Asian Input Methods:** All Fcitx5 components, engines, GTK/Qt integrations and Asian font packs were entirely purged from the base OS to save space and reduce bloat.
+* **Plasma Integration:** Extraneous widgets like `supergfxctl-plasmoid` have been stripped (using native ujust/supergfxctl logic instead).
 * **KWrite:** Kept as native RPM text editor.
 * **Flatpaks:** Flathub (system-wide) configured with a curated selection of KDE apps.
 
@@ -48,11 +52,8 @@ files/scripts/
 ├── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
 └── install-epson-escpr.sh      # Driver installation with Hash Check
 files/rootfs/
-├── etc/grub.d/40_windows       # Windows GRUB menu entry
-├── etc/profile.d/dnf-dummy.sh  # Package manager safety aliases
-└── etc/rpm-ostreed.conf        # Automatic update policy
-files/scripts-extra/
-└── dnf-wrapper                 # DNF wrapper (educational)
+├── etc/rpm-ostreed.conf                 # Automatic update policy
+└── etc/skel/.config/Antigravity/User/   # IDE automated defaults
 .github/workflows/
 ├── build.yml                   # CI/CD + Image Signing (Cosign)
 └── generate-iso.yml            # Auto-ISO Release generation
@@ -79,8 +80,7 @@ To rebase an existing Fedora Atomic (Silverblue/Kinoite) installation:
 To boot into Windows:
 
 1. **Restart** your computer.
-2. Select the **"Windows"** entry in the GRUB boot menu.
-    *(This entry is automatically configured to find your Windows partition)*
+2. Select the **Windows** option in the **rEFInd** boot manager.
 
 ## 🔐 Verification & Maintenance
 

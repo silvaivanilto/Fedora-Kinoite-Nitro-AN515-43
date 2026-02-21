@@ -9,7 +9,14 @@ modules:
   # 1. System Base (RPM-OSTree) - Installations
   - type: rpm-ostree
     install:
+      # Bootloader
+      - rEFInd
+
+      # Multimedia
+      - ffmpegthumbnailer
+
       # Office Suite
+      - autocorr-pt
       - libreoffice-calc
       - libreoffice-draw
       - libreoffice-filters
@@ -20,14 +27,9 @@ modules:
       - libreoffice-opensymbol-fonts
       - libreoffice-pdfimport
       - libreoffice-writer
-      - autocorr-pt
-      - liberation-fonts
 
       # Power Management
       - switcheroo-control
-
-      # Multimedia
-      - ffmpegthumbnailer
 
       # System Integration & Tools
       - plasma-discover-rpm-ostree
@@ -36,70 +38,94 @@ modules:
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
-      # Firefox (Fedora Kinoite default)
-      - firefox
-      - firefox-langpacks
-
-      # Text Editor (Kate → KWrite) - ublue kinoite
-      - kate
-      - kate-plugins
-      - kate-krunner-plugin
-
-      # Apple - ublue all
+      # Apple & iOS Devices
       - libimobiledevice-utils
       - usbmuxd
 
-      # Intel - ublue all
-      - intel-vaapi-driver
-
-      # Monitors & Diagnostics CLI - ublue all
+      # CLI & Network Utilities
       - htop
-      - libva-utils
-      - nvme-cli
-      - nvtop
-      - powerstat
-
-      # CLI Utilities & Network - ublue all
       - tcpdump
       - tmux
       - traceroute
       - vim-enhanced
 
-      # YubiKey - ublue all
-      - pam-u2f
-      - pam_yubico
-      - pamu2fcfg
-      - yubikey-manager
+      # Default Applications
+      - firefox
+      - firefox-langpacks
+      - kate
+      - kate-krunner-plugin
+      - kate-plugins
 
-      # Gaming & RGB - ublue all
+      # Fonts (Asian & Unused)
+      - google-noto-sans-balinese-fonts
+      - google-noto-sans-cjk-fonts
+      - google-noto-sans-javanese-fonts
+      - google-noto-sans-sundanese-fonts
+
+      # Gaming & Peripherals
       - libratbag-ratbagd
       - openrgb-udev-rules
       - oversteer-udev
       - solaar-udev
 
-      # System Utilities
+      # Hardware Drivers (Intel)
+      - intel-vaapi-driver
+
+      # Input Method (Fcitx5 / Asian Languages)
+      # Dependências Exclusivas
+      - libime
+      - libime-data
+      - xcb-imdkit
+      # Motores de Idioma
+      - fcitx5-chewing
+      - fcitx5-chinese-addons
+      - fcitx5-chinese-addons-data
+      - fcitx5-hangul
+      - fcitx5-libthai
+      - fcitx5-mozc
+      - fcitx5-sayura
+      - fcitx5-unikey
+      # Módulos de Interface
+      - fcitx5-gtk
+      - fcitx5-gtk2
+      - fcitx5-gtk3
+      - fcitx5-gtk4
+      - fcitx5-qt
+      - fcitx5-qt5
+      - fcitx5-qt6
+      - fcitx5-qt-libfcitx5qt6widgets
+      - fcitx5-qt-libfcitx5qtdbus
+      - fcitx5-qt-qt6gui
+      # Núcleo e Configuração
+      - fcitx5
+      - fcitx5-autostart
+      - fcitx5-configtool
+      - fcitx5-data
+      - fcitx5-libs
+      - fcitx5-lua
+      - fcitx5-m17n
+      - kcm-fcitx5
+
+      # System Diagnostics & Monitors
+      - libva-utils
+      - nvme-cli
+      - nvtop
+      - powerstat
+
+      # System Utilities & Integration
       - firewall-config
       - icoutils
       - kdebugsettings
       - plasma-drkonqi
+      - supergfxctl-plasmoid
       - toolbox
 
-      # Fcitx5 (Input Method) - ublue kinoite
-      - fcitx5-chewing
-      - fcitx5-chinese-addons
-      - fcitx5-chinese-addons-data
-      - fcitx5-configtool
-      - fcitx5-gtk
-      - fcitx5-gtk3
-      - fcitx5-gtk4
-      - fcitx5-hangul
-      - fcitx5-libthai
-      - fcitx5-m17n
-      - fcitx5-mozc
-      - fcitx5-qt
-      - fcitx5-sayura
-      - fcitx5-unikey
-      - kcm-fcitx5
+      # YubiKey & Authentication
+      - pam-u2f
+      - pam_yubico
+      - pamu2fcfg
+      - python3-yubikey-manager
+      - yubikey-manager
 
   # 3. Files (Static Configuration)
   - type: files
@@ -108,8 +134,6 @@ modules:
         destination: /tmp/rpms
       - source: rootfs
         destination: /
-      - source: scripts-extra
-        destination: /tmp/scripts-extra
 
   # 4. Homebrew
   - type: brew
@@ -120,12 +144,19 @@ modules:
       nerd-fonts:
         - NerdFontsSymbolsOnly
       google-fonts:
+        - Arimo
         - Caladea
         - Carlito
+        - Cascadia Code
+        - Comic Neue
+        - Cousine
         - Fira Mono
         - Fira Sans
         - Google Sans Flex
         - JetBrains Mono
+        - Roboto
+        - Roboto Mono
+        - Tinos
 
   # 6. Flatpaks (Flathub)
   - type: default-flatpaks
@@ -170,11 +201,5 @@ modules:
       - install-oh-my-bash.sh # 4. Terminal Setup (Oh My Bash)
       - install-epson-escpr.sh # 5. Printer Drivers
 
-  # 9. Post-Install Permissions & DNF Wrapper
-  - type: containerfile
-    snippets:
-      - "RUN mkdir -p /usr/local/bin && cp /tmp/scripts-extra/dnf-wrapper /usr/local/bin/dnf && chmod +x /usr/local/bin/dnf"
-      - "RUN chmod +x /etc/grub.d/40_windows"
-
-  # 10. Image Signing (Cosign)
+  # 9. Image Signing (Cosign)
   - type: signing
