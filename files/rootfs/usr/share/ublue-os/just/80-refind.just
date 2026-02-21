@@ -52,8 +52,20 @@ setup-refind-theme:
     # 5. Cleanup traces (Downloads)
     rm -rf /tmp/RONBM
 
-    # 6. Auto-Hide the GRUB Menu (Chainload Optimization)
+    # 6. Hide GRUB Menu (Fedora Kinoite 41+)
     echo "⚙️  Optimizing Boot Chainload (Hiding GRUB Menu)..."
-    grub2-editenv - set menu_auto_hide=1
+    grub2-editenv - set menu_auto_hide=1 menu_hide_ok=1 boot_success=1
+    
+    # Extract auto-hide logic to a separate file
+    if [ -f /etc/grub.d/12_menu_auto_hide ]; then
+        sh -c '/etc/grub.d/12_menu_auto_hide > /boot/grub2/12_menu_auto_hide.cfg'
+    fi
+    
+    # Integrate logic into main GRUB config (check if not already included)
+    if [ -f /boot/grub2/grub.cfg ]; then
+        if ! grep -q "12_menu_auto_hide.cfg" /boot/grub2/grub.cfg; then
+            echo "source \$prefix/12_menu_auto_hide.cfg" >> /boot/grub2/grub.cfg
+        fi
+    fi
 
-    echo "🎉 RONBM Theme successfully installed and GRUB successfully optimized! Reboot your PC to see the new rEFInd."
+    echo "🎉 RONBM Theme successfully installed and GRUB successfully hidden! Reboot your PC to see the new rEFInd."

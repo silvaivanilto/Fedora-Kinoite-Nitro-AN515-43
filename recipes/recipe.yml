@@ -214,7 +214,6 @@ modules:
   - type: systemd
     system:
       enabled:
-        - hide-grub.service
         - nvidia-powerd.service
         - refind-setup.service
         - rpm-ostreed-automatic.timer
