@@ -87,7 +87,6 @@ modules:
       - fcitx5-unikey
       # Módulos de Interface
       - fcitx5-gtk
-      - fcitx5-gtk2
       - fcitx5-gtk3
       - fcitx5-gtk4
       - fcitx5-qt
