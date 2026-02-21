@@ -1,0 +1,13 @@
+[Unit]
+Description=Install rEFInd to EFI if not present
+ConditionPathExists=!/boot/efi/EFI/refind
+ConditionPathExists=!/boot/EFI/refind
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/refind-install
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

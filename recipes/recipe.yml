@@ -82,11 +82,13 @@ modules:
       - libva-intel-media-driver
 
       # Input Method (Fcitx5 / Asian Languages)
-      # Dependências Exclusivas
+
+      # Exclusive Dependencies
       - libime
       - libime-data
       - xcb-imdkit
-      # Motores de Idioma
+
+      # Language Engines
       - fcitx5-chewing
       - fcitx5-chinese-addons
       - fcitx5-chinese-addons-data
@@ -95,7 +97,8 @@ modules:
       - fcitx5-mozc
       - fcitx5-sayura
       - fcitx5-unikey
-      # Módulos de Interface
+
+      # Interface Modules
       - fcitx5-gtk
       - fcitx5-gtk3
       - fcitx5-gtk4
@@ -105,7 +108,8 @@ modules:
       - fcitx5-qt-libfcitx5qt6widgets
       - fcitx5-qt-libfcitx5qtdbus
       - fcitx5-qt-qt6gui
-      # Núcleo e Configuração
+
+      # Core & Configuration
       - fcitx5
       - fcitx5-configtool
       - fcitx5-data
@@ -198,6 +202,7 @@ modules:
           - org.kde.merkuro
           - org.kde.okular
           - org.kde.skanpage
+
       - scope: user
         notify: false
         repo:
@@ -209,7 +214,9 @@ modules:
   - type: systemd
     system:
       enabled:
+        - hide-grub.service
         - nvidia-powerd.service
+        - refind-setup.service
         - rpm-ostreed-automatic.timer
         - supergfxd.service
         - switcheroo-control.service

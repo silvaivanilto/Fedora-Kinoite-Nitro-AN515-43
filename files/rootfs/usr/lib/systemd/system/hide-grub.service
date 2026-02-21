@@ -1,0 +1,12 @@
+[Unit]
+Description=Auto-hide GRUB Menu (rEFInd Chainload)
+ConditionPathExists=/usr/bin/grub2-editenv
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/grub2-editenv - set menu_auto_hide=1
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
