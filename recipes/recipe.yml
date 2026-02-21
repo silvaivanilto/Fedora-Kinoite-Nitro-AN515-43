@@ -98,7 +98,6 @@ modules:
       - fcitx5-qt-qt6gui
       # Núcleo e Configuração
       - fcitx5
-      - fcitx5-autostart
       - fcitx5-configtool
       - fcitx5-data
       - fcitx5-libs
