@@ -14,6 +14,14 @@ jobs:
     permissions:
       contents: write
       packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image_name: fedora-kinoite-nitro-an515-43
+            variant: Kinoite
+          - image_name: fedora-silverblue-nitro-an515-43
+            variant: Silverblue
 
     steps:
       - name: Checkout repo
@@ -27,25 +35,25 @@ jobs:
         uses: jasonn3/build-container-installer@v1.4.0
         id: build
         with:
-          image_name: fedora-kinoite-nitro-an515-43
+          image_name: ${{ matrix.image_name }}
           image_repo: ghcr.io/${{ github.repository_owner }}
           image_tag: latest
           version: 43
-          variant: Kinoite
-          iso_name: fedora-kinoite-nitro-an515-43.iso
+          variant: ${{ matrix.variant }}
+          iso_name: ${{ matrix.image_name }}.iso
 
       - name: Upload ISO as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: fedora-kinoite-nitro-an515-43
+          name: ${{ matrix.image_name }}
           path: |
-            ./fedora-kinoite-nitro-an515-43.iso
-            ./fedora-kinoite-nitro-an515-43.iso-CHECKSUM
+            ./${{ matrix.image_name }}.iso
+            ./${{ matrix.image_name }}.iso-CHECKSUM
           if-no-files-found: error
 
       - name: Split ISO if larger than 2GB
         run: |
-          FILE="fedora-kinoite-nitro-an515-43.iso"
+          FILE="${{ matrix.image_name }}.iso"
           MAX_SIZE=2000000000
           FILE_SIZE=$(stat -c%s "$FILE")
           echo "ISO size: $FILE_SIZE bytes"
@@ -67,13 +75,13 @@ jobs:
           body: |
             Automated ISO build from `${{ github.sha }}`.
 
-            **Image:** `ghcr.io/${{ github.repository_owner }}/fedora-kinoite-nitro-an515-43:latest`
+            **Image:** `ghcr.io/${{ github.repository_owner }}/${{ matrix.image_name }}:latest`
 
             **To reassemble the ISO (if split into parts):**
             ```
-            cat fedora-kinoite-nitro-an515-43.iso.part_* > fedora-kinoite-nitro-an515-43.iso
+            cat ${{ matrix.image_name }}.iso.part_* > ${{ matrix.image_name }}.iso
             ```
           files: |
-            fedora-kinoite-nitro-an515-43.iso
-            fedora-kinoite-nitro-an515-43.iso.part_*
-            fedora-kinoite-nitro-an515-43.iso-CHECKSUM
+            ${{ matrix.image_name }}.iso
+            ${{ matrix.image_name }}.iso.part_*
+            ${{ matrix.image_name }}.iso-CHECKSUM
