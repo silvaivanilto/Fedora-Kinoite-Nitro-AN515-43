@@ -24,6 +24,7 @@ modules:
   - type: rpm-ostree
     remove:
       # Apple & iOS Devices
+      - gvfs-afc
       - libimobiledevice-utils
       - usbmuxd
 
