@@ -28,10 +28,7 @@ modules:
       - usbmuxd
 
       # CLI & Network Utilities
-      - catdoc
       - htop
-      - lrzsz
-      - mpage
       - mtr
       - tcpdump
       - tmux
