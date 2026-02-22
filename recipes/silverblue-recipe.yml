@@ -81,8 +81,6 @@ modules:
       - powerstat
 
       # System Utilities & Integration
-      - firewall-config
-      - icoutils
       - toolbox
 
       # Virtualization & Guest Agents
