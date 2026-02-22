@@ -9,8 +9,8 @@ modules:
   # 1. System Base (RPM-OSTree) - Installations
   - type: rpm-ostree
     install:
-      # Bootloader
-      - rEFInd
+      # Bootloader / GRUB Tools
+      - os-prober
 
       # Multimedia
       - ffmpegthumbnailer
@@ -32,26 +32,36 @@ modules:
       - switcheroo-control
 
       # System Integration & Tools
-      - plasma-discover-rpm-ostree
       - plasma-firewall
 
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
       # Apple & iOS Devices
+      - libimobiledevice
+      - libimobiledevice-glue
       - libimobiledevice-utils
+      - libusbmuxd
       - usbmuxd
+      - hfsplus-tools
+      - hfsutils
 
       # CLI & Network Utilities
+      - apr
+      - apr-util
       - catdoc
       - htop
       - lrzsz
       - mpage
       - mtr
+      - net-tools
+      - socat
       - tcpdump
       - tmux
       - traceroute
+      - vim
       - vim-enhanced
+      - whois
 
       # Default Applications
       - firefox
@@ -61,27 +71,43 @@ modules:
       - kate-plugins
 
       # Fonts (Asian & Unused)
+      - default-fonts-cjk-mono
+      - default-fonts-cjk-serif
       - google-noto-sans-balinese-fonts
       - google-noto-sans-cjk-fonts
       - google-noto-sans-javanese-fonts
+      - google-noto-sans-mono-cjk-vf-fonts
       - google-noto-sans-sundanese-fonts
+      - google-noto-serif-cjk-vf-fonts
+      - jomolhari-fonts
+      - madan-fonts
+      - paktype-naskh-basic-fonts
+      - rit-meera-new-fonts
+      - rit-rachana-fonts
+      - sil-padauk-fonts
+      - vazirmatn-vf-fonts
 
       # Gaming & Peripherals
+      - brltty
+      - dymo-cups-drivers
       - libratbag-ratbagd
       - openrgb-udev-rules
+      - opensc
       - oversteer-udev
+      - pcsc-lite-ccid
+      - ptouch-driver
       - solaar-udev
 
       # Hardware Drivers (Intel)
       - intel-audio-firmware
+      - intel-gmmlib
       - intel-gpu-firmware
       - intel-mediasdk
       - intel-vaapi-driver
       - intel-vpl-gpu-rt
       - intel-vsc-firmware
       - libva-intel-media-driver
-
-      # Input Method (Fcitx5 / Asian Languages)
+      - thermald
 
       # Exclusive Dependencies
       - libime
@@ -89,6 +115,20 @@ modules:
       - xcb-imdkit
 
       # Language Engines
+# Exclusive Dependencies & Backends
+      - anthy-unicode
+      - kasumi-common
+      - kasumi-unicode
+      - libchewing
+      - libhangul
+      - libime
+      - libime-data
+      - libpinyin
+      - libpinyin-data
+      - opencc
+      - xcb-imdkit
+
+      # Language Engines (Fcitx5 & IBus)
       - fcitx5-chewing
       - fcitx5-chinese-addons
       - fcitx5-chinese-addons-data
@@ -97,6 +137,12 @@ modules:
       - fcitx5-mozc
       - fcitx5-sayura
       - fcitx5-unikey
+      - ibus-anthy
+      - ibus-anthy-python
+      - ibus-chewing
+      - ibus-hangul
+      - ibus-libpinyin
+      - ibus-m17n
 
       # Interface Modules
       - fcitx5-gtk
@@ -120,18 +166,27 @@ modules:
 
       # System Diagnostics & Monitors
       - libva-utils
+      - lshw
+      - mcelog
       - nvme-cli
       - nvtop
       - powerstat
+      - smartmontools
+      - sos
 
       # System Utilities & Integration
       - firewall-config
       - icoutils
       - kdebugsettings
+      - kf6-kuserfeedback
+      - khelpcenter
+      - kjournald
+      - krfb
+      - krfb-libs
       - plasma-drkonqi
+      - plasma-welcome
       - supergfxctl-plasmoid
       - toolbox
-
       # Virtualization & Guest Agents
       - hyperv-daemons
       - hyperv-daemons-license
@@ -143,13 +198,17 @@ modules:
       - qemu-guest-agent
       - spice-vdagent
       - spice-webdavd
+      - virt-what
       - virtualbox-guest-additions
 
       # YubiKey & Authentication
+      - libyubikey
       - pam-u2f
       - pam_yubico
       - pamu2fcfg
       - python3-yubikey-manager
+      - ykclient
+      - ykpers
       - yubikey-manager
 
   # 3. Files (Static Configuration)
@@ -168,20 +227,31 @@ modules:
     fonts:
       nerd-fonts:
         - NerdFontsSymbolsOnly
+
       google-fonts:
-        - Arimo
-        - Caladea
-        - Carlito
-        - Cascadia Code
-        - Comic Neue
-        - Cousine
+        # Google
+        - Google Sans
+        - Google Sans Code
+        - Google Sans Flex
+        - Google Sans Text
+
+        # Microsoft Replacements
+        - Arimo         # (Substitui Arial)
+        - Caladea       # (Substitui Cambria)
+        - Carlito       # (Substitui Calibri)
+        - Comic Neue    # (Substitui Comic Sans MS)
+        - Cousine       # (Substitui Courier New)
+        - Tinos         # (Substitui Times New Roman)
+
+        # Mozilla
         - Fira Mono
         - Fira Sans
-        - Google Sans Flex
+
+        # JetBrains
         - JetBrains Mono
-        - Roboto
-        - Roboto Mono
-        - Tinos
+
+        # Microsoft
+        - Cascadia Code
 
   # 6. Flatpaks (Flathub)
   - type: default-flatpaks
@@ -215,8 +285,6 @@ modules:
     system:
       enabled:
         - nvidia-powerd.service
-        - refind-setup.service
-        - rpm-ostreed-automatic.timer
         - supergfxd.service
         - switcheroo-control.service
 

@@ -20,8 +20,6 @@ jobs:
         include:
           - image_name: fedora-kinoite-nitro-an515-43
             variant: Kinoite
-          - image_name: fedora-silverblue-nitro-an515-43
-            variant: Silverblue
 
     steps:
       - name: Checkout repo
