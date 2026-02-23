@@ -34,21 +34,13 @@ modules:
       # System Integration & Tools
       - plasma-firewall
 
-      # Hardware & Performance (AMD/Nvidia/Video)
+      # Hardware & Performance (AMD/Ryzen)
       - gamemode
       - libva-utils
-      - mesa-va-drivers-freeworld
-      - mesa-vdpau-drivers-freeworld
-      - nvidia-vaapi-driver
-      - libvdpau-va-gl
 
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
-
-      # --- Base Video Drivers (Replaced by Freeworld) ---
-      - mesa-va-drivers
-      - mesa-vdpau-drivers
 
       # --- Mozilla Firefox ---
       - firefox
