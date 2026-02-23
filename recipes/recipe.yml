@@ -144,16 +144,6 @@ modules:
         - Cousine       # (Replaces Courier New)
         - Tinos         # (Replaces Times New Roman)
 
-        # Mozilla
-        - Fira Mono
-        - Fira Sans
-
-        # JetBrains
-        - JetBrains Mono
-
-        # Microsoft
-        - Cascadia Code
-
   # 6. Flatpaks (Flathub)
   - type: default-flatpaks
     configurations:
