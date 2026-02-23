@@ -17,9 +17,9 @@ A imagem é baseada no ecossistema `ublue-os` (imagem `kinoite-nvidia:43`) e for
 
 ### 📦 Sistema Limpo e Enxuto (Debloat)
 
-* **Remoção de Bloatwares:** Firefox, gerenciadores de virtualização (hyperv, vbox), drivers Intel sem utilidade, pacotes iOS, entre outros daemons em segundo plano foram removidos na raiz.
-* **Métodos de Entrada Asiáticos Removidos:** Todos os componentes do Fcitx5 foram expurgados do sistema base para economizar espaço e reduzir o excesso gráfico.
-* **Kinoite (KDE):** Removidos SDDM (substituído pelo login Plasma nativo), Discover (configurado apenas para uso de Flatpaks) e Kate.
+* **Remoção de Bloatwares:** Firefox, Utilitários do Fedora (Toolbox, Configuração de Firewall) e deamon/handlers secundários do KDE Plasma (drkonqi, tela de boas-vindas) foram removidos na raiz.
+* **Componentes Asiáticos Removidos:** Todos os componentes do Fcitx5, motores do IBus, bibliotecas de métodos de entrada e fontes secundárias Asiáticas (Balinese, CJK, Javanese, Sundanese) foram expurgados do sistema base para economizar espaço e reduzir o excesso gráfico.
+* **Kinoite (KDE):** Removidos SDDM (substituído pelo login nativo do Plasma) e o editor Kate.
 
 ### 🛠️ Ferramentas de Desenvolvedor e Sistema
 
@@ -74,7 +74,7 @@ A partir do Fedora Kinoite 41+, o gerenciador de boot GRUB tornou-se estático e
     ujust configure-grub-windows
     ```
     
-O sistema pesquisará com segurança em seu SSD, localizará o módulo EFI da Microsoft e o vinculará permanentemente à sua tela de boot. Se algum dia você *formatar/reinstalar o Windows* futuramente, basta rodar este recortes comando novamente para atualizar o novo UUID da partição repavimentada!
+O sistema pesquisará com segurança em seu SSD, localizará o módulo EFI da Microsoft e o vinculará permanentemente à sua tela de boot com um **tempo de espera de 30 segundos** para escolha do SO. Se algum dia você *formatar/reinstalar o Windows* futuramente, basta rodar este comando novamente para atualizar o novo UUID da partição repavimentada!
 
 ## 🔐 Verificação e Lançamentos
 

@@ -17,9 +17,9 @@ This image is built on the `ublue-os` ecosystem (`kinoite-nvidia:43`) and heavil
 
 ### 📦 Clean & Lean System (System Debloat)
 
-* **Removed Bloat:** Firefox, virtualization managers (hyperv, vbox), useless Intel drivers, iOS packages, and several background daemons were purged at the root tree.
-* **Stripped Asian Input Methods:** All Fcitx5 components were purged from the base OS to save space and reduce bloat.
-* **Kinoite (KDE):** Removed SDDM (swapped by native Plasma login), Discover (configured only for Flatpaks) and Kate.
+* **Removed Bloat:** Firefox, Fedora utilities (Toolbox, Firewall Config), and several background/error handlers from Plasma (drkonqi, welcome screen) were purged at the root tree.
+* **Stripped Asian Input Methods & Fonts:** All Fcitx5 components, IBus engines, input base libraries, and unused Noto Asian fonts (Balinese, CJK, Javanese, Sundanese) were purged from the base OS to save space and reduce bloat.
+* **Kinoite (KDE):** Removed SDDM (swapped by native Plasma login), and Kate.
 
 ### 🛠️ Developer & System Tools
 
@@ -74,7 +74,7 @@ Since Fedora Kinoite 41+, the GRUB bootloader is statically chained and hides ot
     ujust configure-grub-windows
     ```
     
-The system will safely search your drive, locate the Microsoft EFI module, and link it permanently to your boot screen. If you ever *format/reinstall Windows* in the future, simply run this command again to update the new partition UUID!
+The system will safely search your drive, locate the Microsoft EFI module, and link it permanently to your boot screen with a **30-second timeout** for OS selection. If you ever *format/reinstall Windows* in the future, simply run this command again to update the new partition UUID!
 
 ## 🔐 Verification & Maintenance
 

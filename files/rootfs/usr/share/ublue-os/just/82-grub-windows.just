@@ -13,7 +13,7 @@ configure-grub-windows:
         exit 1
     fi
 
-    grub2-editenv - set timeout=10
+    grub2-editenv - set timeout=30
 
     WIN_PART=$(os-prober | head -n 1 | cut -d: -f1 | cut -d@ -f1)
     
@@ -30,14 +30,14 @@ configure-grub-windows:
     fi
 
     cat <<EOF > /boot/grub2/windows.cfg
-menuentry "Windows" --class windows --class os {
-    insmod part_gpt
-    insmod fat
-    insmod chain
-    search --no-floppy --fs-uuid --set=root $WIN_UUID
-    chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-}
-EOF
+    menuentry "Windows" --class windows --class os {
+        insmod part_gpt
+        insmod fat
+        insmod chain
+        search --no-floppy --fs-uuid --set=root $WIN_UUID
+        chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+    }
+    EOF
 
     if [ -f /boot/grub2/grub.cfg ]; then
         if ! grep -q "windows.cfg" /boot/grub2/grub.cfg; then
