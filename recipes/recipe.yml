@@ -34,26 +34,21 @@ modules:
       # System Integration & Tools
       - plasma-firewall
 
-      # Hardware & Performance (AMD/Ryzen)
+      # Hardware & Performance (AMD/Nvidia/Video)
       - gamemode
       - libva-utils
-
-  # 1.5 System Base (RPM-OSTree) - Swapping Base Drivers for RPMFusion
-  - type: rpm-ostree
-    install:
-      # AMD
       - mesa-va-drivers-freeworld
       - mesa-vdpau-drivers-freeworld
-      # Nvidia
       - nvidia-vaapi-driver
       - libvdpau-va-gl
-    remove:
-      - mesa-va-drivers
-      - mesa-vdpau-drivers
 
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
+
+      # --- Base Video Drivers (Replaced by Freeworld) ---
+      - mesa-va-drivers
+      - mesa-vdpau-drivers
 
       # --- Mozilla Firefox ---
       - firefox
