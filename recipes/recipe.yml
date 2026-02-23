@@ -40,9 +40,6 @@ modules:
 
   # 1.5 System Base (RPM-OSTree) - Swapping Base Drivers for RPMFusion
   - type: rpm-ostree
-    repos:
-      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     install:
       # AMD
       - mesa-va-drivers-freeworld
