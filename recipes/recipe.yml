@@ -94,6 +94,7 @@ modules:
 
       # --- IBus Ecosystem ---
       - ibus-anthy
+      - ibus-anthy-python
       - ibus-chewing
       - ibus-hangul
       - ibus-libpinyin
@@ -101,6 +102,7 @@ modules:
 
       # --- Input Base Libraries (IME/Mozc/Pinyin) ---
       - anthy-unicode
+      - kasumi-unicode
       - libchewing
       - libhangul
       - libime
