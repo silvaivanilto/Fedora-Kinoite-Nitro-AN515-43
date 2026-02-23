@@ -37,7 +37,6 @@ modules:
       # Hardware & Performance (AMD/Ryzen)
       - gamemode
       - libva-utils
-      - ryzenadj
 
   # 1.5 System Base (RPM-OSTree) - Swapping Base Drivers for RPMFusion
   - type: rpm-ostree
