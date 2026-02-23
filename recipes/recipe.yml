@@ -37,179 +37,80 @@ modules:
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
-      # Apple & iOS Devices
-      - libimobiledevice
-      - libimobiledevice-glue
-      - libimobiledevice-utils
-      - libusbmuxd
-      - usbmuxd
-      - hfsplus-tools
-      - hfsutils
 
-      # CLI & Network Utilities
-      - apr
-      - apr-util
-      - catdoc
-      - htop
-      - lrzsz
-      - mpage
-      - mtr
-      - net-tools
-      - socat
-      - tcpdump
-      - tmux
-      - traceroute
-      - vim
-      - vim-enhanced
-      - whois
-
-      # Default Applications
+      # --- Mozilla Firefox ---
       - firefox
       - firefox-langpacks
+
+      # --- KDE Kate Editor ---
       - kate
       - kate-krunner-plugin
       - kate-plugins
 
-      # Fonts (Asian & Unused)
-      - default-fonts-cjk-mono
-      - default-fonts-cjk-serif
+      # --- Fedora Utilities ---
+      - firewall-config
+      - toolbox
+
+      # --- KDE Plasma Core / Extensions ---
+      - kdebugsettings
+      - plasma-drkonqi
+      - plasma-welcome
+
+      # --- Asus ROG (Supergfxctl) ---
+      - supergfxctl-plasmoid
+
+      # --- Unused Fonts (Asian / Legacy) ---
       - google-noto-sans-balinese-fonts
       - google-noto-sans-cjk-fonts
       - google-noto-sans-javanese-fonts
-      - google-noto-sans-mono-cjk-vf-fonts
       - google-noto-sans-sundanese-fonts
-      - google-noto-serif-cjk-vf-fonts
-      - jomolhari-fonts
-      - madan-fonts
-      - paktype-naskh-basic-fonts
-      - rit-meera-new-fonts
-      - rit-rachana-fonts
-      - sil-padauk-fonts
-      - vazirmatn-vf-fonts
-
-      # Gaming & Peripherals
-      - brltty
-      - dymo-cups-drivers
-      - libratbag-ratbagd
-      - openrgb-udev-rules
-      - opensc
-      - oversteer-udev
-      - pcsc-lite-ccid
-      - ptouch-driver
-      - solaar-udev
-
-      # Hardware Drivers (Intel)
-      - intel-audio-firmware
-      - intel-gmmlib
-      - intel-gpu-firmware
-      - intel-mediasdk
-      - intel-vaapi-driver
-      - intel-vpl-gpu-rt
-      - intel-vsc-firmware
-      - libva-intel-media-driver
-      - thermald
-
-      # Exclusive Dependencies
-      - libime
-      - libime-data
-      - xcb-imdkit
 
       # Language Engines
-# Exclusive Dependencies & Backends
-      - anthy-unicode
-      - kasumi-common
-      - kasumi-unicode
-      - libchewing
-      - libhangul
-      - libime
-      - libime-data
-      - libpinyin
-      - libpinyin-data
-      - opencc
-      - xcb-imdkit
-
-      # Language Engines (Fcitx5 & IBus)
+      # --- Fcitx5 Ecosystem ---
+      - fcitx5
       - fcitx5-chewing
       - fcitx5-chinese-addons
       - fcitx5-chinese-addons-data
-      - fcitx5-hangul
-      - fcitx5-libthai
-      - fcitx5-mozc
-      - fcitx5-sayura
-      - fcitx5-unikey
-      - ibus-anthy
-      - ibus-anthy-python
-      - ibus-chewing
-      - ibus-hangul
-      - ibus-libpinyin
-      - ibus-m17n
-
-      # Interface Modules
+      - fcitx5-configtool
+      - fcitx5-data
       - fcitx5-gtk
+      - fcitx5-gtk2
       - fcitx5-gtk3
       - fcitx5-gtk4
+      - fcitx5-hangul
+      - fcitx5-libs
+      - fcitx5-libthai
+      - fcitx5-lua
+      - fcitx5-m17n
+      - fcitx5-mozc
       - fcitx5-qt
       - fcitx5-qt5
       - fcitx5-qt6
       - fcitx5-qt-libfcitx5qt6widgets
       - fcitx5-qt-libfcitx5qtdbus
       - fcitx5-qt-qt6gui
-
-      # Core & Configuration
-      - fcitx5
-      - fcitx5-configtool
-      - fcitx5-data
-      - fcitx5-libs
-      - fcitx5-lua
-      - fcitx5-m17n
+      - fcitx5-sayura
+      - fcitx5-unikey
       - kcm-fcitx5
 
-      # System Diagnostics & Monitors
-      - libva-utils
-      - lshw
-      - mcelog
-      - nvme-cli
-      - nvtop
-      - powerstat
-      - smartmontools
-      - sos
+      # --- IBus Ecosystem ---
+      - ibus-anthy
+      - ibus-chewing
+      - ibus-hangul
+      - ibus-libpinyin
+      - ibus-m17n
 
-      # System Utilities & Integration
-      - firewall-config
-      - icoutils
-      - kdebugsettings
-      - kf6-kuserfeedback
-      - khelpcenter
-      - kjournald
-      - krfb
-      - krfb-libs
-      - plasma-drkonqi
-      - plasma-welcome
-      - supergfxctl-plasmoid
-      - toolbox
-      # Virtualization & Guest Agents
-      - hyperv-daemons
-      - hyperv-daemons-license
-      - hypervfcopyd
-      - hypervkvpd
-      - hypervvssd
-      - open-vm-tools
-      - open-vm-tools-desktop
-      - qemu-guest-agent
-      - spice-vdagent
-      - spice-webdavd
-      - virt-what
-      - virtualbox-guest-additions
-
-      # YubiKey & Authentication
-      - libyubikey
-      - pam-u2f
-      - pam_yubico
-      - pamu2fcfg
-      - python3-yubikey-manager
-      - ykclient
-      - ykpers
-      - yubikey-manager
+      # --- Input Base Libraries (IME/Mozc/Pinyin) ---
+      - anthy-unicode
+      - libchewing
+      - libhangul
+      - libime
+      - libime-data
+      - libpinyin
+      - libpinyin-data
+      - mozc-data
+      - opencc
+      - xcb-imdkit
 
   # 3. Files (Static Configuration)
   - type: files
@@ -236,12 +137,12 @@ modules:
         - Google Sans Text
 
         # Microsoft Replacements
-        - Arimo         # (Substitui Arial)
-        - Caladea       # (Substitui Cambria)
-        - Carlito       # (Substitui Calibri)
-        - Comic Neue    # (Substitui Comic Sans MS)
-        - Cousine       # (Substitui Courier New)
-        - Tinos         # (Substitui Times New Roman)
+        - Arimo         # (Replaces Arial)
+        - Caladea       # (Replaces Cambria)
+        - Carlito       # (Replaces Calibri)
+        - Comic Neue    # (Replaces Comic Sans MS)
+        - Cousine       # (Replaces Courier New)
+        - Tinos         # (Replaces Times New Roman)
 
         # Mozilla
         - Fira Mono
@@ -263,22 +164,20 @@ modules:
           name: flathub
           title: Flathub
         install:
+          # --- Containers & Virtualization ---
           - io.github.DenysMb.Kontainer
+
+          # --- KDE Media & Utilities ---
           - org.kde.elisa
           - org.kde.haruna
           - org.kde.kalk
           - org.kde.koko
           - org.kde.marknote
+
+          # --- KDE Office & Productivity ---
           - org.kde.merkuro
           - org.kde.okular
           - org.kde.skanpage
-
-      - scope: user
-        notify: false
-        repo:
-          url: https://dl.flathub.org/repo/flathub.flatpakrepo
-          name: flathub
-        remove-repo: true
 
   # 7. Service Configuration (Systemd)
   - type: systemd
@@ -296,6 +195,7 @@ modules:
       - install-antigravity.sh # 3. Antigravity Auto-Updater
       - install-oh-my-bash.sh # 4. Terminal Setup (Oh My Bash)
       - install-epson-escpr.sh # 5. Printer Drivers
+      - hide-app-icons.sh # 6. Hide unwanted GUI icons (htop, nvtop)
 
   # 9. Image Signing (Cosign)
   - type: signing
