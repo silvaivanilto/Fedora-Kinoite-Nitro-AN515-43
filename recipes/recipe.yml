@@ -107,7 +107,6 @@ modules:
       - libime-data
       - libpinyin
       - libpinyin-data
-      - mozc-data
       - opencc
       - xcb-imdkit
 
