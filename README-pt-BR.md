@@ -9,6 +9,7 @@ A imagem é baseada no ecossistema `ublue-os` (imagem `kinoite-nvidia:43`) e for
 ### 🎮 Gráficos & Desempenho
 
 * **Drivers Nvidia:** Drivers proprietários pré-instalados na base atômica.
+* **RPMFusion Freeworld:** Drivers base capados de fábrica (`mesa-va-drivers`, `mesa-vdpau-drivers`) foram substituídos por versões completas do RPMFusion para garantir aceleração de hardware nativa (VA-API/VDPAU) no YouTube e Navegadores usando sua placa Híbrida AMD/Nvidia.
 * **supergfxctl:** Serviço de gerenciamento híbrido de GPU habilitado para troca contínua e sem falhas entra as placas de vídeo.
 
 ### 🔋 Energia & Vida Útil da Bateria
@@ -18,17 +19,54 @@ A imagem é baseada no ecossistema `ublue-os` (imagem `kinoite-nvidia:43`) e for
 ### 📦 Sistema Limpo e Enxuto (Debloat)
 
 * **Remoção de Bloatwares:** Firefox, Utilitários do Fedora (Toolbox, Configuração de Firewall) e deamon/handlers secundários do KDE Plasma (drkonqi, tela de boas-vindas) foram removidos na raiz.
+* **Firmwares e Blobs Intel Removidos:** Todos os drivers gráficos (media/vaapi), codecs de hardware nativos e placas Wi-Fi/Bluetooth do ecossistema Intel (`iwlwifi-*`, `iwlegacy-*`) foram erradicados da imagem, economizando dezenas de megabytes já que o Acer Nitro utiliza chipsets AMD e Nvidia.
 * **Componentes Asiáticos Removidos:** Todos os componentes do Fcitx5, motores do IBus, bibliotecas de métodos de entrada e fontes secundárias Asiáticas (Balinese, CJK, Javanese, Sundanese) foram expurgados do sistema base para economizar espaço e reduzir o excesso gráfico.
 * **Kinoite (KDE):** Removidos SDDM (substituído pelo login nativo do Plasma) e o editor Kate.
 
 ### 🛠️ Ferramentas de Desenvolvedor e Sistema
 
 * **Navegador Padrão:** **Google Chrome** (RPM) pré-instalado e definido como padrão.
-* **Terminal:** **Oh My Bash** pré-instalado em `/etc/skel` com o tema **Powerline** e plugins de produtividade (`git`, `bash-completion`) para todos os novos usuários.
+* **Terminal Shell:** **Oh My Bash** pré-instalado em `/etc/skel` com o tema **Powerline** e plugins de produtividade (`git`, `bash-completion`, `fzf`) para todos os novos usuários.
 * **Aplicativos Flatpak:** Implementação nativa de aplicativos essenciais rodando por padrão sandboxed via user/Flathub.
-* **Homebrew:** Gerenciador Linuxbrew pré-instalado.
+* **Homebrew:** Gerenciador Linuxbrew pré-instalado (`brew`).
 * **Configuração de IDEs:** Configurações automáticas prontas para Antigravity Code / VSCodium.
 * **Tipografia:** Conjunto abrangente de fontes Sans e Monospace amigáveis para desenvolvedores (Cascadia Code, Fira, JetBrains Mono, Roboto, NerdFonts, etc).
+
+### 🧰 Arsenal CLI Básico
+
+A imagem vêm preparada com os melhores utilitários GNU e TUI pré-instalados na raiz para gerenciamento limpo via Terminal:
+
+* **Gerenciamento de Contêineres:**
+  * `podman`: O substituto nativo da RedHat (daemonless) para manipulação de contêineres Docker via linha de comando.
+  * `buildah` e `skopeo`: Para construir a nível nativo e inspecionar ou copiar imagens de SO em contêiner ou OCI.
+  * `distrobox`: Solução pilar para desenvolvedores; permite instalar qualquer Linux (Ubuntu, Arch) via terminal integrado na sua `/home` usando contêineres e acessar os softwares mantendo o Fedora intocado.
+
+* **Produtividade em Terminal:**
+  * `tmux`: Multiplexador de terminal que permite dividir a mesma tela em dezenas de sessões assíncronas em texto.
+  * `fzf`: *"Fuzzy-finder"* (anexado ao *Oh My Bash*) para navegação inteligente e buscas de arquivos ou metadados de histórico via prompt.
+  * `jq`: Um processador robusto em C puro para exibir, fatiar e filtrar dados de arquivos `.json` diretamente na interface CLI.
+  * `xxd`: Editor de hexdump, exibe e codifica conteúdo binário para desenvolvedores C/Assembler investigarem binários nativos.
+  * `tree`: Lista profunda do layout orgânico das sub-pastas do sistema em diagrama de texto.
+  * `vim-enhanced` / `nano`: Seus clássicos e essenciais editores de texto no escuro absoluto.
+
+* **Monitoramento & Hardware (Monitores e TUI):**
+  * `htop`: Terminal User Interface colorido em TUI com suporte a gráficos e medidores visuais robustos para medir Processador (CPU) / RAM.
+  * `nvtop`: Essencial TUI task manager para os chips Nvidia e AMD do Nitro 5 que traça o estresse gráfico do sistema nativamente.
+  * `powerstat`: Medidor sensível de consumo de energia; traça picos elétricos puros em *Watts* exatos drenados na bateria usando integração no Kernel.
+  * `lshw` e `dmidecode`: Trazem o esqueleto bruto com ID do seu hardware pela BIOS através de dumping completo do sistema.
+  * `nvme-cli`: Ferramenta CLI de baixo-nível que emite laudos profundos de hardware e temperatura dos SSDs M.2 do seu Acer.
+
+* **Rede & Internet:**
+  * `curl`: Transferência bruta ou debug de URLs e cabeçalhos em múltiplos protocolos diretos no shell.
+  * `rsync`: O pilar dos backups em Linux; transfere sincronizando massivamente diretórios para armazenamentos remotos mantendo hardlinks perfeitos.
+  * `iproute2` (`ip`, `ss`): Kit mestre nativo Linux focado em roteamento bruto manual do PC.
+  * `traceroute`, `mtr` e `nmap` (`iputils`): Essenciais sondas para tráfego bruto por protocolos IP, medir saltos e checar de portas.
+  * `bind-utils` (`dig`, `nslookup`): Debugadores pesados de roteamento para testar resolução de internet nos servidores DNS.
+
+* **Compactação & Media:**
+  * `tar`, `gzip`, `xz`, `bzip2`: Core system de compactação Linux.
+  * `7zip`, `zip`, `unzip`: Utilitários customizados e implementados na receita para lidar com arquivos híbridos trazidos da cultura do Windows.
+  * `ffmpeg`: Arsenal imenso e poderoso em linha de comando de conversores de código para recodificar áudios e vídeos ou rodar streaming/script via Linux base.
 
 ### 🖨️ Impressão
 
@@ -75,6 +113,15 @@ A partir do Fedora Kinoite 41+, o gerenciador de boot GRUB tornou-se estático e
     ```
     
 O sistema pesquisará com segurança em seu SSD, localizará o módulo EFI da Microsoft e o vinculará permanentemente à sua tela de boot com um **tempo de espera de 30 segundos** para escolha do SO. Se algum dia você *formatar/reinstalar o Windows* futuramente, basta rodar este comando novamente para atualizar o novo UUID da partição repavimentada!
+
+### ⚡ Desempenho e Energia (Processadores AMD Ryzen)
+
+O Nitro 5 possui um processador AMD Ryzen que opera incrivelmente melhor e mais frio sob a flag `amd_pstate=active`. Preparamos um atalho para ativá-la:
+
+```bash
+ujust enable-amd-pstate
+```
+O sistema aplicará os Kernel Args e avisará para reiniciar usando as tecnologias modernas de CPPC da AMD, garantindo os melhores frames em jogos ou maior economia de bateria na tomada!
 
 ## 🔐 Verificação e Lançamentos
 

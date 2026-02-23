@@ -34,6 +34,27 @@ modules:
       # System Integration & Tools
       - plasma-firewall
 
+      # Hardware & Performance (AMD/Ryzen)
+      - gamemode
+      - libva-utils
+      - ryzenadj
+
+  # 1.5 System Base (RPM-OSTree) - Swapping Base Drivers for RPMFusion
+  - type: rpm-ostree
+    repos:
+      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    install:
+      # AMD
+      - mesa-va-drivers-freeworld
+      - mesa-vdpau-drivers-freeworld
+      # Nvidia
+      - nvidia-vaapi-driver
+      - libvdpau-va-gl
+    remove:
+      - mesa-va-drivers
+      - mesa-vdpau-drivers
+
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
@@ -58,6 +79,20 @@ modules:
 
       # --- Asus ROG (Supergfxctl) ---
       - supergfxctl-plasmoid
+
+      # --- Intel Drivers & Blobs (AMD/Nvidia System) ---
+      - intel-audio-firmware
+      - intel-gmmlib
+      - intel-gpu-firmware
+      - intel-mediasdk
+      - intel-vaapi-driver
+      - intel-vpl-gpu-rt
+      - intel-vsc-firmware
+      - iwlegacy-firmware
+      - iwlwifi-dvm-firmware
+      - iwlwifi-mld-firmware
+      - iwlwifi-mvm-firmware
+      - libva-intel-media-driver
 
       # --- Unused Fonts (Asian / Legacy) ---
       - google-noto-sans-balinese-fonts
