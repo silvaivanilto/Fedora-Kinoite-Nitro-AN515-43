@@ -91,7 +91,6 @@ modules:
       - fcitx5-lua
       - fcitx5-m17n
       - fcitx5-mozc
-      - fcitx5-qt
       - fcitx5-qt5
       - fcitx5-qt6
       - fcitx5-qt-libfcitx5qt6widgets
