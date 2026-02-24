@@ -91,8 +91,6 @@ modules:
       - fcitx5-lua
       - fcitx5-m17n
       - fcitx5-mozc
-      - fcitx5-qt5
-      - fcitx5-qt6
       - fcitx5-sayura
       - fcitx5-unikey
       - kcm-fcitx5
