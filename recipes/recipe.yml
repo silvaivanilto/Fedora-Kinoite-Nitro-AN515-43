@@ -92,8 +92,6 @@ modules:
       - fcitx5-m17n
       - fcitx5-mozc
       - fcitx5-qt-qt6gui
-      - fcitx5-qt-libfcitx5qt6widgets
-      - fcitx5-qt-libfcitx5qtdbus
       - fcitx5-sayura
       - fcitx5-unikey
       - kcm-fcitx5
