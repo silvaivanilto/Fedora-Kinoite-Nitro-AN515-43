@@ -29,7 +29,7 @@ A imagem é baseada no ecossistema `ublue-os` (imagem `kinoite-nvidia:43`) e for
 * **Terminal Shell:** **Oh My Bash** pré-instalado em `/etc/skel` com o tema **Powerline** e plugins de produtividade (`git`, `bash-completion`, `fzf`) para todos os novos usuários.
 * **Aplicativos Flatpak:** Implementação nativa de aplicativos essenciais rodando por padrão sandboxed via user/Flathub.
 * **Homebrew:** Gerenciador Linuxbrew pré-instalado (`brew`).
-* **Configuração de IDEs:** Configurações automáticas prontas para Antigravity Code / VSCodium.
+* **Configuração de IDEs:** Configurações automáticas prontas para VSCodium.
 * **Tipografia:** Conjunto abrangente de fontes Sans e Monospace amigáveis para desenvolvedores (Cascadia Code, Fira, JetBrains Mono, Roboto, NerdFonts, etc).
 
 ### 🧰 Arsenal CLI Básico
@@ -79,11 +79,13 @@ recipes/
 └── recipe.yml                  # Configuração do ambiente KDE Plasma
 files/scripts/
 ├── install-chrome.sh           # Instalação e config padrão do Chrome RPM
-├── install-antigravity.sh      # Autoupdater do Antigravity
-├── install-oh-my-bash.sh       # Template customizado de shell (/etc/skel)
-└── install-epson-escpr.sh      # Instalação de drivers c/ checagem de Hash
+├── install-oh-my-bash.sh       # Template customizado de shell
+├── install-epson-escpr.sh      # Instalação de drivers c/ checagem de Hash
+├── system-cleanup.sh           # Limpeza de GUI e resíduos do sistema
+└── swap-display-manager.sh     # Troca de SDDM para Plasma Login
 files/rootfs/
-└── etc/skel/.config/Antigravity/User/   # Padrões automáticos da IDE
+└── etc/                        # Configurações de sistema (fonts, xdg)
+└── usr/share/ublue-os/just/    # Comandos ujust customizados
 .github/workflows/
 ├── build.yml                   # CI/CD
 └── generate-iso.yml            # Geração de ISO da imagem
@@ -113,15 +115,6 @@ A partir do Fedora Kinoite 41+, o gerenciador de boot GRUB tornou-se estático e
     ```
     
 O sistema pesquisará com segurança em seu SSD, localizará o módulo EFI da Microsoft e o vinculará permanentemente à sua tela de boot com um **tempo de espera de 30 segundos** para escolha do SO. Se algum dia você *formatar/reinstalar o Windows* futuramente, basta rodar este comando novamente para atualizar o novo UUID da partição repavimentada!
-
-### ⚡ Desempenho e Energia (Processadores AMD Ryzen)
-
-O Nitro 5 possui um processador AMD Ryzen que opera incrivelmente melhor e mais frio sob a flag `amd_pstate=active`. Preparamos um atalho para ativá-la:
-
-```bash
-ujust enable-amd-pstate
-```
-O sistema aplicará os Kernel Args e avisará para reiniciar usando as tecnologias modernas de CPPC da AMD, garantindo os melhores frames em jogos ou maior economia de bateria na tomada!
 
 ## 🔐 Verificação e Lançamentos
 

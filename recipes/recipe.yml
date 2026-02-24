@@ -12,21 +12,20 @@ modules:
       # Bootloader / GRUB Tools
       - os-prober
 
-      # Multimedia
-      - ffmpegthumbnailer
-
-      # Office Suite
-      - autocorr-pt
+      # Office Suite (Apps)
       - libreoffice-calc
       - libreoffice-draw
-      - libreoffice-filters
       - libreoffice-impress
+      - libreoffice-math
+      - libreoffice-writer
+
+      # Office Suite (Complements)
+      - autocorr-pt
+      - libreoffice-filters
       - libreoffice-kf6
       - libreoffice-langpack-pt-BR
-      - libreoffice-math
       - libreoffice-opensymbol-fonts
       - libreoffice-pdfimport
-      - libreoffice-writer
 
       # Power Management
       - switcheroo-control
@@ -34,48 +33,41 @@ modules:
       # System Integration & Tools
       - plasma-firewall
 
-      # Hardware & Performance (AMD/Ryzen)
-      - gamemode
-      - libva-utils
-
   # 2. System Base (RPM-OSTree) - Removals
   - type: rpm-ostree
     remove:
-
-      # --- Mozilla Firefox ---
+      # --- GUI Applications & Interfaces ---
       - firefox
       - firefox-langpacks
-
-      # --- KDE Kate Editor ---
       - kate
       - kate-krunner-plugin
       - kate-plugins
-
-      # --- Fedora Utilities ---
       - firewall-config
-      - toolbox
-
-      # --- KDE Plasma Core / Extensions ---
       - kdebugsettings
       - plasma-drkonqi
       - plasma-welcome
-
-      # --- Asus ROG (Supergfxctl) ---
       - supergfxctl-plasmoid
 
-      # --- Intel Drivers & Blobs (AMD/Nvidia System) ---
-      - intel-audio-firmware
+      # --- CLI Tools ---
+      - toolbox
+
+      # --- Intel Media & Video Acceleration ---
       - intel-gmmlib
-      - intel-gpu-firmware
       - intel-mediasdk
       - intel-vaapi-driver
       - intel-vpl-gpu-rt
+      - libva-intel-media-driver
+
+      # --- Intel Hardware Firmware ---
+      - intel-audio-firmware
+      - intel-gpu-firmware
       - intel-vsc-firmware
+
+      # --- Intel Network Firmware (Wi-Fi/BT) ---
       - iwlegacy-firmware
       - iwlwifi-dvm-firmware
       - iwlwifi-mld-firmware
       - iwlwifi-mvm-firmware
-      - libva-intel-media-driver
 
       # --- Unused Fonts (Asian / Legacy) ---
       - google-noto-sans-balinese-fonts
@@ -83,8 +75,7 @@ modules:
       - google-noto-sans-javanese-fonts
       - google-noto-sans-sundanese-fonts
 
-      # Language Engines
-      # --- Fcitx5 Ecosystem ---
+      # --- Language Engines & Input Methods (Fcitx5/IBus Bloat) ---
       - fcitx5
       - fcitx5-chewing
       - fcitx5-chinese-addons
@@ -109,16 +100,14 @@ modules:
       - fcitx5-sayura
       - fcitx5-unikey
       - kcm-fcitx5
-
-      # --- IBus Ecosystem ---
+      # IBus Ecosystem
       - ibus-anthy
       - ibus-anthy-python
       - ibus-chewing
       - ibus-hangul
       - ibus-libpinyin
       - ibus-m17n
-
-      # --- Input Base Libraries (IME/Mozc/Pinyin) ---
+      # Input Base Libraries (IME/Mozc/Pinyin)
       - anthy-unicode
       - kasumi-unicode
       - libchewing
@@ -155,12 +144,12 @@ modules:
         - Google Sans Text
 
         # Microsoft Replacements
-        - Arimo         # (Replaces Arial)
-        - Caladea       # (Replaces Cambria)
-        - Carlito       # (Replaces Calibri)
-        - Comic Neue    # (Replaces Comic Sans MS)
-        - Cousine       # (Replaces Courier New)
-        - Tinos         # (Replaces Times New Roman)
+        - Arimo # (Replaces Arial)
+        - Caladea # (Replaces Cambria)
+        - Carlito # (Replaces Calibri)
+        - Comic Neue # (Replaces Comic Sans MS)
+        - Cousine # (Replaces Courier New)
+        - Tinos # (Replaces Times New Roman)
 
   # 6. Flatpaks (Flathub)
   - type: default-flatpaks
@@ -200,10 +189,9 @@ modules:
     scripts:
       - swap-display-manager.sh # 1. Display Manager (SDDM → Plasma Login)
       - install-chrome.sh # 2. Browser (Chrome RPM)
-      - install-antigravity.sh # 3. Antigravity Auto-Updater
-      - install-oh-my-bash.sh # 4. Terminal Setup (Oh My Bash)
-      - install-epson-escpr.sh # 5. Printer Drivers
-      - hide-app-icons.sh # 6. Hide unwanted GUI icons (htop, nvtop)
+      - install-oh-my-bash.sh # 3. Terminal Setup (Oh My Bash)
+      - install-epson-escpr.sh # 4. Printer Drivers
+      - system-cleanup.sh # 5. System Cleanup (Icons & Mozilla residues)
 
   # 9. Image Signing (Cosign)
   - type: signing

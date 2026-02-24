@@ -29,7 +29,7 @@ This image is built on the `ublue-os` ecosystem (`kinoite-nvidia:43`) and heavil
 * **Terminal Shell:** **Oh My Bash** pre-installed in `/etc/skel` with the **Powerline** theme and productivity plugins (`git`, `bash-completion`, `fzf`) for all new users.
 * **Flatpak Hub:** Native implementation of essential apps running sandboxed by default.
 * **Homebrew:** Linuxbrew manager pre-installed (`brew`).
-* **IDE Setup:** Pre-configured settings ready for Antigravity Code / VSCodium.
+* **IDE Setup:** Pre-configured settings ready for VSCodium.
 * **Typography:** Comprehensive set of dev-friendly Monospace and Sans fonts (Cascadia Code, Fira, JetBrains Mono, Roboto, NerdFonts, etc).
 
 ### 🧰 Basic CLI Arsenal
@@ -79,11 +79,13 @@ recipes/
 └── recipe.yml                  # KDE Plasma environment config
 files/scripts/
 ├── install-chrome.sh           # Chrome RPM & default browser config
-├── install-antigravity.sh      # Antigravity Auto-Updater
-├── install-oh-my-bash.sh       # Custom shell template (/etc/skel)
-└── install-epson-escpr.sh      # Driver installation with Hash Check
+├── install-oh-my-bash.sh       # Custom shell template
+├── install-epson-escpr.sh      # Driver installation with Hash Check
+├── system-cleanup.sh           # GUI cleanup & residue removal
+└── swap-display-manager.sh     # SDDM to Plasma Login swap
 files/rootfs/
-└── etc/skel/.config/Antigravity/User/   # IDE automated defaults
+└── etc/                        # System configurations (fonts, xdg)
+└── usr/share/ublue-os/just/    # Custom ujust commands
 .github/workflows/
 ├── build.yml                   # CI/CD
 └── generate-iso.yml            # Auto-ISO Release generation
@@ -113,15 +115,6 @@ Since Fedora Kinoite 41+, the GRUB bootloader is statically chained and hides ot
     ```
     
 The system will safely search your drive, locate the Microsoft EFI module, and link it permanently to your boot screen with a **30-second timeout** for OS selection. If you ever *format/reinstall Windows* in the future, simply run this command again to update the new partition UUID!
-
-### ⚡ Performance & Power (AMD Ryzen Processors)
-
-The Nitro 5 relies on an AMD Ryzen processor that yields far better cooling and speeds under the `amd_pstate=active` kernel flag. We prepared a shortcut to trigger it:
-
-```bash
-ujust enable-amd-pstate
-```
-The OS will append the Kernel Args for you to reboot using AMD's modern CPPC tech, unlocking the highest FPS drops in gaming and crazy battery savings off the plug!
 
 ## 🔐 Verification & Maintenance
 
