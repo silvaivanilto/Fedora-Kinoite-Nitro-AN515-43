@@ -189,9 +189,10 @@ modules:
     scripts:
       - swap-display-manager.sh # 1. Display Manager (SDDM → Plasma Login)
       - install-chrome.sh # 2. Browser (Chrome RPM)
-      - install-oh-my-bash.sh # 3. Terminal Setup (Oh My Bash)
-      - install-epson-escpr.sh # 4. Printer Drivers
-      - system-cleanup.sh # 5. System Cleanup (Icons & Mozilla residues)
+      - install-antigravity.sh # 3. Antigravity Auto-Updater
+      - install-oh-my-bash.sh # 4. Terminal Setup (Oh My Bash)
+      - install-epson-escpr.sh # 5. Printer Drivers
+      - system-cleanup.sh # 6. System Cleanup (Icons & Mozilla residues)
 
   # 9. Image Signing (Cosign)
   - type: signing

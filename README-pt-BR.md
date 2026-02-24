@@ -4,37 +4,31 @@ Imagem customizada do **Fedora Atomic** (Kinoite/KDE) otimizada para o notebook 
 
 ## 🚀 Principais Recursos
 
-A imagem é baseada no ecossistema `ublue-os` (imagem `kinoite-nvidia:43`) e fortemente enxuta para as limitações e virtudes de hardware do Nitro 5.
+A imagem é baseada no ecossistema **ublue-os** (`kinoite-nvidia:43`), herdando sua base sólida e sendo fortemente otimizada para o hardware do Nitro 5.
 
-### 🎮 Gráficos & Desempenho
+### 🍱 Herança ublue-os (Nativo)
 
 * **Drivers Nvidia:** Drivers proprietários pré-instalados na base atômica.
-* **RPMFusion Freeworld:** Drivers base capados de fábrica (`mesa-va-drivers`, `mesa-vdpau-drivers`) foram substituídos por versões completas do RPMFusion para garantir aceleração de hardware nativa (VA-API/VDPAU) no YouTube e Navegadores usando sua placa Híbrida AMD/Nvidia.
-* **supergfxctl:** Serviço de gerenciamento híbrido de GPU habilitado para troca contínua e sem falhas entra as placas de vídeo.
+* **Serviços:** `supergfxctl` (troca de GPU) e `nvidia-powerd` (balanço térmico) já configurados.
+* **Homebrew:** Gerenciador Linuxbrew nativo (`brew`).
 
-### 🔋 Energia & Vida Útil da Bateria
+### 🛠️ Nossas Otimizações (Nitro 5)
 
-* **Nvidia Powerd:** Habilitado para balanceamento dinâmico térmico e de energia do Laptop.
+* **Debloat de Sistema:** 
+    * **Remoção de Bloatwares:** Firefox e utilitários Fedora removidos na raiz.
+    * **Limpeza de Hardware:** Erradicamos drivers e firmwares Intel para economizar espaço, já que o Nitro 5 é AMD/Nvidia.
 
-### 📦 Sistema Limpo e Enxuto (Debloat)
+* **Limpeza de Localização:** Purga de métodos de entrada e fontes asiáticas.
+* **Software Customizado:** 
+    * **Google Chrome:** Instalação automatizada via RPM.
+    * **Oh My Bash:** Pré-configurado em `/etc/skel`.
+    * **Antigravity:** Serviço de auto-atualização do sistema.
+    * **Impressoras:** Drivers Epson (`escpr`) com verificação de hash.
+* **Faxina:** Remoção de resíduos do sistema e ícones inúteis da GUI.
 
-* **Remoção de Bloatwares:** Firefox, Utilitários do Fedora (Toolbox, Configuração de Firewall) e deamon/handlers secundários do KDE Plasma (drkonqi, tela de boas-vindas) foram removidos na raiz.
-* **Firmwares e Blobs Intel Removidos:** Todos os drivers gráficos (media/vaapi), codecs de hardware nativos e placas Wi-Fi/Bluetooth do ecossistema Intel (`iwlwifi-*`, `iwlegacy-*`) foram erradicados da imagem, economizando dezenas de megabytes já que o Acer Nitro utiliza chipsets AMD e Nvidia.
-* **Componentes Asiáticos Removidos:** Todos os componentes do Fcitx5, motores do IBus, bibliotecas de métodos de entrada e fontes secundárias Asiáticas (Balinese, CJK, Javanese, Sundanese) foram expurgados do sistema base para economizar espaço e reduzir o excesso gráfico.
-* **Kinoite (KDE):** Removidos SDDM (substituído pelo login nativo do Plasma) e o editor Kate.
+### 🧰 Arsenal CLI Nativo (Base Ublue)
 
-### 🛠️ Ferramentas de Desenvolvedor e Sistema
-
-* **Navegador Padrão:** **Google Chrome** (RPM) pré-instalado e definido como padrão.
-* **Terminal Shell:** **Oh My Bash** pré-instalado em `/etc/skel` com o tema **Powerline** e plugins de produtividade (`git`, `bash-completion`, `fzf`) para todos os novos usuários.
-* **Aplicativos Flatpak:** Implementação nativa de aplicativos essenciais rodando por padrão sandboxed via user/Flathub.
-* **Homebrew:** Gerenciador Linuxbrew pré-instalado (`brew`).
-* **Configuração de IDEs:** Configurações automáticas prontas para VSCodium.
-* **Tipografia:** Conjunto abrangente de fontes Sans e Monospace amigáveis para desenvolvedores (Cascadia Code, Fira, JetBrains Mono, Roboto, NerdFonts, etc).
-
-### 🧰 Arsenal CLI Básico
-
-A imagem vêm preparada com os melhores utilitários GNU e TUI pré-instalados na raiz para gerenciamento limpo via Terminal:
+Como parte do ecossistema Ublue, a imagem inclui utilitários de ponta pré-instalados na raiz:
 
 * **Gerenciamento de Contêineres:**
   * `podman`: O substituto nativo da RedHat (daemonless) para manipulação de contêineres Docker via linha de comando.
@@ -79,6 +73,7 @@ recipes/
 └── recipe.yml                  # Configuração do ambiente KDE Plasma
 files/scripts/
 ├── install-chrome.sh           # Instalação e config padrão do Chrome RPM
+├── install-antigravity.sh      # Autoupdater do Antigravity
 ├── install-oh-my-bash.sh       # Template customizado de shell
 ├── install-epson-escpr.sh      # Instalação de drivers c/ checagem de Hash
 ├── system-cleanup.sh           # Limpeza de GUI e resíduos do sistema

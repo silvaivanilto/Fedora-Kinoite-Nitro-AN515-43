@@ -4,37 +4,31 @@ Custom **Fedora Atomic** (Kinoite/KDE) image optimized for the Acer Nitro 5 (AN5
 
 ## 🚀 Key Features
 
-This image is built on the `ublue-os` ecosystem (`kinoite-nvidia:43`) and heavily stripped down for the Nitro 5's hardware specs constraints and virtues.
+This image is built on the **ublue-os** ecosystem (`kinoite-nvidia:43`), inheriting its robust base while being heavily stripped down and optimized for the Nitro 5's hardware.
 
-### 🎮 Graphics & Performance
+### � Inherited from Ublue-os (Base)
 
 * **Nvidia Drivers:** Proprietary drivers pre-installed in the atomic base.
-* **RPMFusion Freeworld:** Restricted factory drivers (`mesa-va-drivers`, `mesa-vdpau-drivers`) were swapped for full RPMFusion versions to unlock absolute native hardware acceleration (VA-API/VDPAU) in YouTube and Browsers on your Hybrid AMD/Nvidia GPU.
-* **supergfxctl:** Hybrid GPU management service enabled for seamless, glitch-free GPU switching.
-
-### 🔋 Power & Battery Health
-
-* **Nvidia Powerd:** Enabled for dynamic thermal and laptop power balancing.
-
-### 📦 Clean & Lean System (System Debloat)
-
-* **Removed Bloat:** Firefox, Fedora utilities (Toolbox, Firewall Config), and several background/error handlers from Plasma (drkonqi, welcome screen) were purged at the root tree.
-* **Intel Firmwares & Blobs Purged:** All Intel ecosystem graphics drivers (media/vaapi) and Wi-Fi/Bluetooth cards (`iwlwifi-*`, `iwlegacy-*`) have been eradicated from the image, saving dozens of megabytes since the Acer Nitro exclusively uses AMD and Nvidia chipsets.
-* **Stripped Asian Input Methods & Fonts:** All Fcitx5 components, IBus engines, input base libraries, and unused Noto Asian fonts (Balinese, CJK, Javanese, Sundanese) were purged from the base OS to save space and reduce bloat.
-* **Kinoite (KDE):** Removed SDDM (swapped by native Plasma login), and Kate.
-
-### 🛠️ Developer & System Tools
-
-* **Default Browser:** **Google Chrome** (RPM) pre-installed and set as default.
-* **Terminal Shell:** **Oh My Bash** pre-installed in `/etc/skel` with the **Powerline** theme and productivity plugins (`git`, `bash-completion`, `fzf`) for all new users.
-* **Flatpak Hub:** Native implementation of essential apps running sandboxed by default.
+* **Services:** `supergfxctl` (GPU switching) and `nvidia-powerd` (thermal balancing) are pre-configured.
 * **Homebrew:** Linuxbrew manager pre-installed (`brew`).
-* **IDE Setup:** Pre-configured settings ready for VSCodium.
-* **Typography:** Comprehensive set of dev-friendly Monospace and Sans fonts (Cascadia Code, Fira, JetBrains Mono, Roboto, NerdFonts, etc).
 
-### 🧰 Basic CLI Arsenal
+### 🛠️ Our Project Optimizations
 
-The image comes packed with top-tier GNU and TUI utilities pre-installed at the root tree for clean Terminal management:
+* **System Debloat:** 
+    * **Firefox & Fedora Utilities Purged:** Removed at the root tree to save space.
+    * **Hardware Cleanup:** All Intel ecosystem drivers (graphics/Wi-Fi) were eradicated, as the Nitro 5 uses AMD/Nvidia exclusively.
+
+* **Stripped Localization:** Purged Asian input methods and fonts to reduce bloat.
+* **Custom Software:** 
+    * **Google Chrome:** Automated RPM installation.
+    * **Oh My Bash:** Pre-configured in `/etc/skel` for productivity.
+    * **Antigravity:** Auto-updater service for the system core.
+    * **Printers:** Epson drivers (`escpr`) with security verification.
+* **Cleaning:** Pruned system residues and hidden unneeded GUI icons.
+
+### 🧰 Native CLI Arsenal (Ublue Base)
+
+As part of the Ublue ecosystem, the image includes top-tier utilities pre-installed at the root tree:
 
 * **Container Management:**
   * `podman`: RedHat's native daemonless replacement to manage Docker containers through the command line.
@@ -79,6 +73,7 @@ recipes/
 └── recipe.yml                  # KDE Plasma environment config
 files/scripts/
 ├── install-chrome.sh           # Chrome RPM & default browser config
+├── install-antigravity.sh      # Antigravity Auto-Updater
 ├── install-oh-my-bash.sh       # Custom shell template
 ├── install-epson-escpr.sh      # Driver installation with Hash Check
 ├── system-cleanup.sh           # GUI cleanup & residue removal
