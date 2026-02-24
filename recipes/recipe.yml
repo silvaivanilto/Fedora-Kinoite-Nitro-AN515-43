@@ -99,23 +99,23 @@ modules:
       # - fcitx5-unikey
       # - kcm-fcitx5
       # IBus Ecosystem
-      - ibus-anthy
-      - ibus-anthy-python
-      - ibus-chewing
-      - ibus-hangul
-      - ibus-libpinyin
-      - ibus-m17n
+      # - ibus-anthy
+      # - ibus-anthy-python
+      # - ibus-chewing
+      # - ibus-hangul
+      # - ibus-libpinyin
+      # - ibus-m17n
       # Input Base Libraries (IME/Mozc/Pinyin)
-      - anthy-unicode
-      - kasumi-unicode
-      - libchewing
-      - libhangul
-      - libime
-      - libime-data
-      - libpinyin
-      - libpinyin-data
-      - opencc
-      - xcb-imdkit
+      # - anthy-unicode
+      # - kasumi-unicode
+      # - libchewing
+      # - libhangul
+      # - libime
+      # - libime-data
+      # - libpinyin
+      # - libpinyin-data
+      # - opencc
+      # - xcb-imdkit
 
   # 3. Files (Static Configuration)
   - type: files
