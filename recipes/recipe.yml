@@ -78,7 +78,7 @@ modules:
       - cirrus-audio-firmware
       - qcom-wwan-firmware
 
-      # --- Language Engines & Input Methods (Fcitx5 Bloat) ---
+      # --- Language Engines & Input Methods (Fcitx5/IBus Bloat) ---
       - fcitx5
       - fcitx5-chewing
       - fcitx5-chinese-addons
@@ -94,6 +94,7 @@ modules:
       - fcitx5-lua
       - fcitx5-m17n
       - fcitx5-mozc
+      - fcitx5-qt
       - fcitx5-qt6
       - fcitx5-qt-libfcitx5qt6widgets
       - fcitx5-qt-qt6gui
@@ -105,6 +106,8 @@ modules:
       - xcb-imdkit
       - kasumi-common
       - kasumi-unicode
+      - ibus-anthy
+      - ibus-anthy-python
 
       # --- Redundant Apps & Drivers ---
       # Printer Drivers (Keeping Epson, removing others)
@@ -151,28 +154,38 @@ modules:
       - speech-dispatcher-utils
       - espeak-ng
       - bolt
+      - plasma-thunderbolt
       - fprintd
       - fprintd-pam
       - libfprint
       - jfsutils
+      - qt6-qtspeech-speechd
 
       # --- Heavy KDE Services (Akonadi/MariaDB Debloat) ---
       - akonadi-server
       - akonadi-server-mysql
+      - mariadb
       - mariadb-server
       - mariadb-backup
       - mariadb-errmsg
       - mariadb-common
+      - mariadb-gssapi-server
+      - mariadb-cracklib-password-check
 
       # --- Mobile Network Services (LTE/5G Redundancy) ---
       - ModemManager
       - ModemManager-glib
+      - NetworkManager-wwan
+      - geoclue2
 
       # --- Legacy Network Protocols & Security ---
       - nfs-utils
+      - nfsv3-client-utils
       - rpcbind
       - pcsc-lite
       - pcsc-lite-libs
+      - python3-yubikey-manager
+      - opensc-libs
 
       # --- VPN Protocols (Unused by User) ---
       - openconnect
@@ -181,6 +194,9 @@ modules:
       - NetworkManager-openconnect
       - NetworkManager-openvpn
       - NetworkManager-vpnc
+      - plasma-nm-openconnect
+      - plasma-nm-openvpn
+      - plasma-nm-vpnc
 
       # --- Hardware Optimization (AMD / Nitro 5) ---
       - thermald
