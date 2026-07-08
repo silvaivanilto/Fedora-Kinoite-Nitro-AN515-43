@@ -4,7 +4,7 @@ Imagem customizada do **Fedora Atomic** (Kinoite/KDE) otimizada para o notebook 
 
 ## 🚀 Principais Recursos
 
-A imagem é baseada no ecossistema **ublue-os** (`kinoite-nvidia:43`), herdando sua base sólida e sendo fortemente otimizada para o hardware do Nitro 5.
+A imagem é baseada no ecossistema **ublue-os** (`kinoite-nvidia:44`), herdando sua base sólida e sendo fortemente otimizada para o hardware do Nitro 5.
 
 ### 🍱 Herança ublue-os (Nativo)
 
@@ -22,7 +22,6 @@ A imagem é baseada no ecossistema **ublue-os** (`kinoite-nvidia:43`), herdando 
 * **Software Customizado:** 
     * **Google Chrome:** Instalação automatizada via RPM.
     * **Oh My Bash:** Pré-configurado em `/etc/skel`.
-    * **Antigravity:** Serviço de auto-atualização do sistema.
     * **Impressoras:** Drivers Epson (`escpr`) com verificação de hash.
 * **Faxina:** Remoção de resíduos do sistema e ícones inúteis da GUI.
 
@@ -73,11 +72,9 @@ recipes/
 └── recipe.yml                  # Configuração do ambiente KDE Plasma
 files/scripts/
 ├── install-chrome.sh           # Instalação e config padrão do Chrome RPM
-├── install-antigravity.sh      # Autoupdater do Antigravity
 ├── install-oh-my-bash.sh       # Template customizado de shell
 ├── install-epson-escpr.sh      # Instalação de drivers c/ checagem de Hash
-├── system-cleanup.sh           # Limpeza de GUI e resíduos do sistema
-└── swap-display-manager.sh     # Troca de SDDM para Plasma Login
+└── system-cleanup.sh           # Limpeza de GUI e resíduos do sistema
 files/rootfs/
 └── etc/                        # Configurações de sistema (fonts, xdg)
 └── usr/share/ublue-os/just/    # Comandos ujust customizados

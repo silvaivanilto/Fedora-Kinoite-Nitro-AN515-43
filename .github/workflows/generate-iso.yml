@@ -36,18 +36,9 @@ jobs:
           image_name: ${{ matrix.image_name }}
           image_repo: ghcr.io/${{ github.repository_owner }}
           image_tag: latest
-          version: 43
+          version: 44
           variant: ${{ matrix.variant }}
           iso_name: ${{ matrix.image_name }}.iso
-
-      - name: Upload ISO as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.image_name }}
-          path: |
-            ./${{ matrix.image_name }}.iso
-            ./${{ matrix.image_name }}.iso-CHECKSUM
-          if-no-files-found: error
 
       - name: Split ISO if larger than 2GB
         run: |
@@ -59,16 +50,22 @@ jobs:
             echo "ISO exceeds 2GB, splitting..."
             split -b 1900M "$FILE" "${FILE}.part_"
             rm "$FILE"
-            echo "SPLIT=true" >> $GITHUB_ENV
           else
             echo "ISO is under 2GB, no split needed."
-            echo "SPLIT=false" >> $GITHUB_ENV
           fi
+
+      - name: Upload ISO as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.image_name }}
+          path: |
+            ./${{ matrix.image_name }}.iso*
+          if-no-files-found: error
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: iso-${{ steps.date.outputs.date }}
+          tag_name: iso-${{ steps.date.outputs.date }}-${{ github.run_id }}
           name: "ISO Build — ${{ steps.date.outputs.date }}"
           body: |
             Automated ISO build from `${{ github.sha }}`.
@@ -80,6 +77,4 @@ jobs:
             cat ${{ matrix.image_name }}.iso.part_* > ${{ matrix.image_name }}.iso
             ```
           files: |
-            ${{ matrix.image_name }}.iso
-            ${{ matrix.image_name }}.iso.part_*
-            ${{ matrix.image_name }}.iso-CHECKSUM
+            ${{ matrix.image_name }}.iso*

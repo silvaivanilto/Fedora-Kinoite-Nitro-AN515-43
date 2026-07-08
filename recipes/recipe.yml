@@ -1,9 +1,9 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 name: fedora-kinoite-nitro-an515-43
-description: Fedora Kinoite (Fedora 43 / Nvidia) optimized for Acer Nitro 5 (AN515-43).
+description: Fedora Kinoite (Fedora 44 / Nvidia) optimized for Acer Nitro 5 (AN515-43).
 base-image: ghcr.io/ublue-os/kinoite-nvidia
-image-version: 43
+image-version: 44
 
 modules:
   # 1. System Base (RPM-OSTree) - Installations
@@ -258,12 +258,10 @@ modules:
   # 8. Configuration Scripts (Execution Order)
   - type: script
     scripts:
-      - swap-display-manager.sh # 1. Display Manager (SDDM → Plasma Login)
-      - install-chrome.sh # 2. Browser (Chrome RPM)
-      - install-antigravity.sh # 3. Antigravity Auto-Updater
-      - install-oh-my-bash.sh # 4. Terminal Setup (Oh My Bash)
-      - install-epson-escpr.sh # 5. Printer Drivers
-      - system-cleanup.sh # 6. System Cleanup (Icons & Mozilla residues)
+      - install-chrome.sh # 1. Browser (Chrome RPM)
+      - install-oh-my-bash.sh # 2. Terminal Setup (Oh My Bash)
+      - install-epson-escpr.sh # 3. Printer Drivers
+      - system-cleanup.sh # 4. System Cleanup (Icons & Mozilla residues)
 
   # 9. Image Signing (Cosign)
   - type: signing

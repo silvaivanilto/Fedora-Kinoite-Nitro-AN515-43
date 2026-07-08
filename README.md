@@ -4,7 +4,7 @@ Custom **Fedora Atomic** (Kinoite/KDE) image optimized for the Acer Nitro 5 (AN5
 
 ## 🚀 Key Features
 
-This image is built on the **ublue-os** ecosystem (`kinoite-nvidia:43`), inheriting its robust base while being heavily stripped down and optimized for the Nitro 5's hardware.
+This image is built on the **ublue-os** ecosystem (`kinoite-nvidia:44`), inheriting its robust base while being heavily stripped down and optimized for the Nitro 5's hardware.
 
 ### � Inherited from Ublue-os (Base)
 
@@ -22,7 +22,6 @@ This image is built on the **ublue-os** ecosystem (`kinoite-nvidia:43`), inherit
 * **Custom Software:** 
     * **Google Chrome:** Automated RPM installation.
     * **Oh My Bash:** Pre-configured in `/etc/skel` for productivity.
-    * **Antigravity:** Auto-updater service for the system core.
     * **Printers:** Epson drivers (`escpr`) with security verification.
 * **Cleaning:** Pruned system residues and hidden unneeded GUI icons.
 
@@ -73,11 +72,9 @@ recipes/
 └── recipe.yml                  # KDE Plasma environment config
 files/scripts/
 ├── install-chrome.sh           # Chrome RPM & default browser config
-├── install-antigravity.sh      # Antigravity Auto-Updater
 ├── install-oh-my-bash.sh       # Custom shell template
 ├── install-epson-escpr.sh      # Driver installation with Hash Check
-├── system-cleanup.sh           # GUI cleanup & residue removal
-└── swap-display-manager.sh     # SDDM to Plasma Login swap
+└── system-cleanup.sh           # GUI cleanup & residue removal
 files/rootfs/
 └── etc/                        # System configurations (fonts, xdg)
 └── usr/share/ublue-os/just/    # Custom ujust commands
