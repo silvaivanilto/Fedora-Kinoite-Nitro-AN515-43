@@ -160,6 +160,7 @@ modules:
       - libfprint
       - jfsutils
       - qt6-qtspeech-speechd
+      - qt5-qtspeech-speechd
 
       # --- Heavy KDE Services (Akonadi/MariaDB Debloat) ---
       - akonadi-server
@@ -173,19 +174,22 @@ modules:
       - mariadb-cracklib-password-check
 
       # --- Mobile Network Services (LTE/5G Redundancy) ---
-      - ModemManager
-      - ModemManager-glib
-      - NetworkManager-wwan
-      - geoclue2
+      # Kept: ModemManager, ModemManager-glib, NetworkManager-wwan, geoclue2
+      # (dependency chain: xdg-desktop-portal → geoclue2 → ModemManager-glib → ModemManager)
 
       # --- Legacy Network Protocols & Security ---
       - nfs-utils
       - nfsv3-client-utils
+      - nfs-client-utils
       - rpcbind
       - pcsc-lite
       - pcsc-lite-libs
+      - pcsc-lite-ccid
       - python3-yubikey-manager
+      - yubikey-manager
       - opensc-libs
+      - opensc
+      - python3-pyscard
 
       # --- VPN Protocols (Unused by User) ---
       - openconnect
