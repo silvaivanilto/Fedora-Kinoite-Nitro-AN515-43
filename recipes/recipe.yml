@@ -46,7 +46,6 @@ modules:
       - kdebugsettings
       - plasma-drkonqi
       - plasma-welcome
-      - supergfxctl-plasmoid
 
       # --- CLI Tools ---
       - toolbox
